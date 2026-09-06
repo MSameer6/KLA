@@ -1,0 +1,56 @@
+{% extends "dashboard/base.html" %}
+{% block page_title %}Client Management{% endblock %}
+{% block content %}
+
+<div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+<div>
+<h3 class="mb-1" style="color:#102A43;">All Clients</h3>
+<div class="text-muted">Manage and track your client records</div>
+</div>
+<a href="{% url 'add_client' %}" class="btn btn-primary">+ Add New Client</a>
+</div>
+
+<div class="card">
+<div class="card-header">
+<form method="get" class="row g-2">
+<div class="col-md-5">
+<input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search client by name...">
+</div>
+<div class="col-auto"><button class="btn btn-outline-primary">Search</button></div>
+{% if query %}<div class="col-auto"><a href="{% url 'clients' %}" class="btn btn-outline-secondary">Clear</a></div>{% endif %}
+</form>
+</div>
+
+<div class="table-responsive">
+<table class="table table-vcenter card-table">
+<thead><tr><th>#</th><th>Client Information</th><th>CNIC</th><th>Phone</th><th>NTN</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+<tbody>
+{% for client in clients %}
+<tr>
+<td class="text-muted">{{ client.id }}</td>
+<td><div class="fw-bold">{{ client.full_name }}</div><div class="text-muted small">{{ client.email|default:"No email provided" }}</div></td>
+<td>{{ client.cnic }}</td>
+<td>{{ client.phone }}</td>
+<td>{{ client.ntn|default:"—" }}</td>
+<td>
+{% if client.status == "Completed" %}<span class="badge status-badge status-completed">{{ client.status }}</span>
+{% elif client.status == "In Progress" %}<span class="badge status-badge status-progress">{{ client.status }}</span>
+{% elif client.status == "Information Pending" %}<span class="badge status-badge status-pending">{{ client.status }}</span>
+{% else %}<span class="badge status-badge status-new">{{ client.status }}</span>{% endif %}
+</td>
+<td class="text-end">
+<a href="{% url 'edit_client' client.pk %}" class="btn btn-sm btn-outline-primary action-btn">Edit</a>
+<a href="{% url 'delete_client' client.pk %}" class="btn btn-sm btn-outline-danger action-btn">Delete</a>
+</td>
+</tr>
+{% empty %}
+<tr><td colspan="7" class="text-center py-5">
+<div class="h3 text-muted">No clients found</div>
+<a href="{% url 'add_client' %}" class="btn btn-primary mt-2">Add Your First Client</a>
+</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}

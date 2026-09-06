@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120">
+<rect width="420" height="120" rx="18" fill="#102A43"/>
+<circle cx="62" cy="60" r="42" fill="#D4A017"/>
+<path d="M45 82V38h10v17l15-17h12L65 58l19 24H71L57 64l-2 3v15z" fill="#102A43"/>
+<text x="120" y="55" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="white">KLA</text>
+<text x="120" y="83" font-family="Arial, sans-serif" font-size="16" letter-spacing="2" fill="#D4A017">KHAN LAW ASSOCIATES</text>
+</svg>
