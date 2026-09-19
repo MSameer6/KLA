@@ -1,0 +1,18 @@
+{% extends "accounts/auth_base.html" %}
+{% load static %}
+{% block title %}Client Register{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/client_registration.css' %}">
+<div class="label client">CLIENT REGISTRATION</div>
+<h2>Create Your Account</h2>
+<p>Enter your details to create your secure account and client profile.</p>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+{% for field in form %}
+<div class="field {% if field.name == 'requested_services' %}service-field{% endif %}">
+<label>{{ field.label }}</label><div class="input-wrap">{{ field }}{% if field.name == 'password' or field.name == 'confirm_password' %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div>
+{% if field.help_text %}<small class="help-text">{{ field.help_text }}</small>{% endif %}{% for error in field.errors %}<small>{{ error }}</small>{% endfor %}
+</div>{% endfor %}
+{% for error in form.non_field_errors %}<small>{{ error }}</small>{% endfor %}
+<button class="auth-button"><i class="fa-solid fa-lock"></i> Create Client Account</button>
+</form><p class="center">Already registered? <a href="{% url 'client_login' %}">Login here</a></p>
+{% endblock %}

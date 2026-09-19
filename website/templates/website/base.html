@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Khan Law Associates{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/website.css' %}">
+</head>
+
+<body>
+
+    <!-- TOP CONTACT BAR -->
+    <div class="top-bar">
+        <div class="container top-content">
+            <span>
+                <i class="fa-solid fa-envelope"></i>
+                info@khanlawassociates.com
+            </span>
+
+            <span>
+                <i class="fa-solid fa-phone"></i>
+                +92 XXX XXXXXXX
+            </span>
+        </div>
+    </div>
+
+
+    <!-- ANNOUNCEMENT MARQUEE -->
+    <div class="announcement">
+        <div class="marquee">
+            <span>
+                📢 Welcome to Khan Law Associates — Professional Tax & Legal Services |
+                Online Client Registration | Secure Document Management |
+                Easy Application Status Tracking
+            </span>
+        </div>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container navbar">
+
+            <a href="{% url 'website_home' %}" class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+
+                <div>
+                    <h2>Khan Law</h2>
+                    <span>ASSOCIATES</span>
+                </div>
+            </a>
+
+
+            <!-- NAVIGATION -->
+            <nav class="nav-menu" id="navMenu">
+
+                <a href="{% url 'website_home' %}">Home</a>
+
+                <a href="{% url 'about' %}">About Us</a>
+
+                <a href="{% url 'services' %}">Services</a>
+
+                <a href="{% url 'contact' %}">Contact</a>
+
+                <!-- MOBILE LOGIN / REGISTER -->
+                <div class="mobile-nav-buttons">
+                    <a href="{% url 'client_login' %}" class="mobile-login">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    </a>
+                    <a href="{% url 'client_register' %}" class="mobile-register">Register Now</a>
+                    <a href="{% url 'staff_login' %}" class="mobile-staff"><i class="fa-solid fa-lock"></i> Staff Login</a>
+                    <a href="{% url 'staff_register' %}" class="mobile-staff"><i class="fa-solid fa-user-plus"></i> Staff Register</a>
+                </div>
+
+            </nav>
+
+
+            <!-- HEADER BUTTONS -->
+            <div class="header-buttons">
+
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="login-btn"><i class="fa-solid fa-lock-open"></i> Logout</a>
+                {% else %}
+                <a href="{% url 'client_login' %}" class="login-btn"><i class="fa-solid fa-lock"></i> Login</a>
+                <a href="{% url 'client_register' %}" class="register-btn"><i class="fa-solid fa-user-plus"></i> Client Register</a>
+                <a href="{% url 'staff_register' %}" class="staff-btn"><i class="fa-solid fa-user-plus"></i> Staff Register</a>
+                {% endif %}
+            </div>
+
+
+            <!-- MOBILE MENU -->
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <!-- COMPANY -->
+            <div class="footer-column">
+
+                <div class="footer-logo">
+
+                    <i class="fa-solid fa-scale-balanced"></i>
+
+                    <div>
+                        <h2>Khan Law</h2>
+                        <span>ASSOCIATES</span>
+                    </div>
+
+                </div>
+
+                <p>
+                    Providing professional tax assistance and client management
+                    services with a secure and efficient digital experience.
+                </p>
+
+                <!-- SOCIAL MEDIA -->
+                <div class="social-icons">
+
+                    <a href="#" class="facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" class="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#" class="twitter">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+
+                    <a href="#" class="linkedin">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK LINKS -->
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a href="{% url 'website_home' %}">
+                    <i class="fa-solid fa-angle-right"></i> Home
+                </a>
+
+                <a href="{% url 'about' %}">
+                    <i class="fa-solid fa-angle-right"></i> About Us
+                </a>
+
+                <a href="{% url 'services' %}">
+                    <i class="fa-solid fa-angle-right"></i> Services
+                </a>
+
+                <a href="{% url 'contact' %}">
+                    <i class="fa-solid fa-angle-right"></i> Contact Us
+                </a>
+
+            </div>
+
+
+            <!-- SERVICES -->
+            <div class="footer-column">
+
+                <h3>Our Services</h3>
+
+                <a href="#">
+                    <i class="fa-solid fa-angle-right"></i>
+                    NTN Registration
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-angle-right"></i>
+                    Income Tax Return
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-angle-right"></i>
+                    Sales Tax Services
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-angle-right"></i>
+                    Tax Consultancy
+                </a>
+
+            </div>
+
+
+            <!-- CONTACT -->
+            <div class="footer-column">
+
+                <h3>Contact Information</h3>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Karachi, Pakistan
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    +92 XXX XXXXXXX
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    info@khanlawassociates.com
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- COPYRIGHT -->
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Khan Law Associates. All Rights Reserved.
+            </p>
+
+            <p>
+                Tax Client Management System
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- WHATSAPP FLOAT BUTTON -->
+    <a href="https://wa.me/923XXXXXXXXX"
+        target="_blank"
+        class="whatsapp-btn"
+        title="Chat with us on WhatsApp">
+
+        <i class="fa-brands fa-whatsapp"></i>
+
+    </a>
+
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop">
+
+        <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+
+    <script src="{% static 'js/website.js' %}"></script>
+
+</body>
+
+</html>

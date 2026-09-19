@@ -1,0 +1,10 @@
+{% extends "accounts/auth_base.html" %}
+{% load static %}
+{% block title %}Case Status{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/client_registration.css' %}">
+<div class="label client">CASE STATUS TRACKING</div><h2>{{ tax_case.service_type }}</h2><p>Follow the current stage and recorded updates for this service request.</p>
+<div class="portal-links"><a href="{% url 'client_portal' %}"><i class="fa-solid fa-arrow-left"></i> Dashboard</a><a href="{% url 'client_documents' %}"><i class="fa-solid fa-file-arrow-up"></i> Documents</a></div>
+<div class="portal-list"><div><strong>Current status: {{ tax_case.status }}</strong><span>Opened: {{ tax_case.opened_date|date:"d M Y" }}</span>{% if tax_case.target_date %}<span>Target completion: {{ tax_case.target_date|date:"d M Y" }}</span>{% endif %}{% if tax_case.completed_date %}<span>Completed: {{ tax_case.completed_date|date:"d M Y" }}</span>{% endif %}</div></div>
+<h3 class="portal-section-title">Case updates</h3><div class="portal-list">{% for activity in activities %}<div><strong>{{ activity.action }}</strong><span>{{ activity.description }}</span><span>{{ activity.created_at|date:"d M Y, H:i" }}</span></div>{% empty %}<div><span>No status updates have been recorded yet.</span></div>{% endfor %}</div>
+{% endblock %}

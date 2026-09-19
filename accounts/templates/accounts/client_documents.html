@@ -1,0 +1,11 @@
+{% extends "accounts/auth_base.html" %}
+{% load static %}
+{% block title %}My Documents{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/client_registration.css' %}">
+<div class="label client">MY DOCUMENTS & TAX CASES</div><h2>Upload and Track</h2><p>Upload documents securely, receive review feedback, and follow your case progress.</p>
+<div class="portal-links"><a href="{% url 'client_portal' %}"><i class="fa-solid fa-arrow-left"></i> Dashboard</a><a href="{% url 'client_profile' %}"><i class="fa-solid fa-user-pen"></i> My profile</a></div>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}{% for field in form %}<div class="field"><label>{{ field.label }}</label><div class="input-wrap">{{ field }}</div>{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}{% for error in field.errors %}<small>{{ error }}</small>{% endfor %}</div>{% endfor %}<button class="auth-button"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Document</button></form>
+<h3 class="portal-section-title">My documents</h3><div class="portal-list">{% for document in documents %}<div><strong>{{ document.title }}</strong><span>{{ document.get_document_type_display }} &middot; {{ document.uploaded_at|date:"d M Y" }} &middot; Review: {{ document.review_status }}</span>{% if document.reviewer_notes %}<span><strong>Reviewer note:</strong> {{ document.reviewer_notes }}</span>{% endif %}{% if document.missing_or_corrected_request %}<span><strong>Action requested:</strong> {{ document.missing_or_corrected_request }}</span>{% endif %}<a href="{% url 'download_document' document.pk %}" target="_blank">Open document</a></div>{% empty %}<div><span>No documents uploaded yet.</span></div>{% endfor %}</div>
+<h3 class="portal-section-title">My tax case status</h3><div class="portal-list">{% for case in tax_cases %}<div><strong>{{ case.service_type }}</strong><span>Current status: {{ case.status }}</span>{% if case.target_date %}<span>Target: {{ case.target_date|date:"d M Y" }}</span>{% endif %}</div>{% empty %}<div><span>No tax cases have been added yet.</span></div>{% endfor %}</div>
+{% endblock %}

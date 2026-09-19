@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  --kla-navy: #102A43;
+  --kla-navy-light: #163A5F;
+  --kla-blue: #2563EB;
+  --kla-gold: #D4A017;
+  --kla-bg: #F4F7FB;
+  --kla-text: #243B53;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--kla-bg); color: var(--kla-text); font-family: 'Inter', sans-serif; }
+
+.kla-sidebar {
+  background: linear-gradient(180deg, #102A43 0%, #0B2035 100%);
+  border: none;
+  box-shadow: 8px 0 30px rgba(16,42,67,.08);
+}
+
+.logo-wrap { padding: 18px 8px 24px; }
+.logo-wrap img { width: 100%; max-width: 235px; }
+
+.kla-sidebar .nav-link {
+  color: #B8C7D9;
+  border-radius: 10px;
+  margin: 5px 0;
+  padding: 12px 14px;
+  font-weight: 500;
+  transition: .2s;
+}
+.kla-sidebar .nav-link:hover, .kla-sidebar .nav-link.active {
+  background: rgba(255,255,255,.12);
+  color: white;
+}
+.nav-icon { width: 26px; display:inline-block; }
+
+.topbar {
+  background: white;
+  border-bottom: 1px solid #E6ECF3;
+  padding: 20px 0;
+}
+.page-title { font-family:'Playfair Display', serif; color: var(--kla-navy); font-size: 28px; }
+
+.stat-card {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(31,59,84,.07);
+  transition: transform .2s, box-shadow .2s;
+  overflow: hidden;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 14px 35px rgba(31,59,84,.12); }
+.stat-card .card-body { padding: 24px; }
+.stat-number { font-size: 32px; font-weight: 800; color: var(--kla-navy); }
+.stat-label { color: #829AB1; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.stat-icon {
+  width: 52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; background:#EEF4FF;
+}
+
+.card {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(31,59,84,.06);
+}
+.card-header { background:white; border-bottom:1px solid #EEF1F5; padding:20px 24px; }
+.card-title { color:var(--kla-navy); font-weight:700; }
+
+.btn-primary {
+  background: var(--kla-blue); border-color:var(--kla-blue);
+  border-radius:9px; padding:10px 18px; font-weight:600;
+}
+.btn-primary:hover { background:#1D4ED8; border-color:#1D4ED8; }
+.btn-gold { background:var(--kla-gold); color:white; border:none; }
+.btn-gold:hover { background:#B8890E; color:white; }
+.btn-outline-primary, .btn-outline-secondary, .btn-outline-danger, .btn-outline-success {
+  border-radius: 9px; font-weight: 600; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn-primary, .btn-gold { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 5px 12px rgba(16,42,67,.12); }
+.btn:focus-visible, .nav-link:focus-visible, a:focus-visible { outline: 3px solid rgba(37,99,235,.28); outline-offset: 2px; }
+.card-header .btn { white-space: nowrap; }
+.table a.text-reset:hover { color: var(--kla-blue) !important; }
+@media (max-width: 767px) { .card-header { padding:16px; } .table > :not(caption) > * > * { padding:13px 14px; } .page-title { font-size:24px; } }
+
+.form-control, .form-select {
+  border-radius: 9px; padding: 11px 13px; border-color:#D9E2EC;
+}
+.form-control:focus, .form-select:focus {
+  border-color:var(--kla-blue); box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+
+.table > :not(caption) > * > * { padding:16px 18px; }
+.table thead th { color:#627D98; font-size:12px; text-transform:uppercase; letter-spacing:.5px; background:#F8FAFC; }
+
+.status-badge { border-radius:20px; padding:7px 11px; font-size:11px; font-weight:700; }
+.status-new { background:#E0E7FF; color:#3730A3; }
+.status-progress { background:#DBEAFE; color:#1D4ED8; }
+.status-completed { background:#DCFCE7; color:#15803D; }
+.status-pending { background:#FEF3C7; color:#B45309; }
+
+.welcome-card {
+  background: linear-gradient(135deg, var(--kla-navy), var(--kla-navy-light));
+  color:white; border-radius:18px; padding:28px; box-shadow:0 12px 30px rgba(16,42,67,.18);
+}
+.welcome-card h2 { font-family:'Playfair Display',serif; }
+.muted-white { color:#C9D7E5; }
+
+.action-btn { border-radius:8px; margin-right:4px; }
