@@ -1,0 +1,5 @@
+{% extends "dashboard/base.html" %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-lg-8"><div class="card"><div class="card-header"><div><h3 class="card-title mb-1">{{ title }}</h3><div class="text-muted small">Only administrators can change staff access and action permissions.</div></div></div><div class="card-body p-4"><form method="post">{% csrf_token %}<div class="row">{% for field in form %}<div class="col-md-6 mb-4"><label class="form-label fw-semibold">{{ field.label }}</label>{{ field }}{% if field.help_text %}<div class="form-hint">{{ field.help_text }}</div>{% endif %}{% for error in field.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}</div>{% endfor %}</div><div class="border-top pt-4 d-flex gap-2"><button class="btn btn-primary px-4">Save account access</button><a href="{% url 'administration' %}" class="btn btn-outline-secondary">Cancel</a></div></form></div></div></div></div>
+{% endblock %}

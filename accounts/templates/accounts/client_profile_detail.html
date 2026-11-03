@@ -1,0 +1,9 @@
+{% extends "accounts/auth_base.html" %}
+{% load static %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/client_registration.css' %}">
+<div class="label client">MY PROFILE</div><h2>{{ client.full_name }}</h2><p>Review your personal, business, and tax information.</p>
+<div class="portal-links"><a href="{% url 'client_portal' %}"><i class="fa-solid fa-arrow-left"></i> Dashboard</a><a href="{% url 'edit_client_profile' %}"><i class="fa-solid fa-user-pen"></i> Edit profile</a><a href="{% url 'client_documents' %}"><i class="fa-solid fa-file-arrow-up"></i> Documents</a></div>
+<div class="portal-list"><div><strong>Personal information</strong><span>CNIC / NIC: {{ client.cnic }}</span><span>Phone: {{ client.phone }}</span><span>Email: {{ client.email|default:"Not provided" }}</span><span>Address: {{ client.address|default:"Not provided" }}</span></div><div><strong>Business & tax information</strong><span>Business details: {{ client.business_details|default:"Not provided" }}</span><span>NTN: {{ client.ntn|default:"Not provided" }}</span><span>Tax information: {{ client.tax_information|default:"Not provided" }}</span></div><div><strong>Requested services</strong>{% for service in client.requested_services %}<span>{{ service }}</span>{% empty %}<span>No services selected.</span>{% endfor %}</div></div>
+{% endblock %}
