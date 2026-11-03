@@ -1,0 +1,491 @@
+{% extends "website/base.html" %}
+
+{% block title %}
+Khan Law Associates | Professional Tax Services
+{% endblock %}
+
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <span class="hero-tag">
+                <i class="fa-solid fa-shield-halved"></i>
+                Trusted Tax Solutions
+            </span>
+
+            <h1>
+                Professional Tax Solutions
+                <span>Made Simple & Secure</span>
+            </h1>
+
+            <p>
+                Khan Law Associates provides professional tax assistance,
+                client registration and document management through a
+                secure and convenient digital platform.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'client_register' %}" class="primary-btn">
+                    Get Started
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="{% url 'services' %}" class="secondary-btn">
+                    Explore Services
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO CARD -->
+        <div class="hero-card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-file-shield"></i>
+            </div>
+
+            <h3>Manage Your Tax Services Online</h3>
+
+            <p>
+                Register, submit information, upload documents and track
+                your application status easily.
+            </p>
+
+            <div class="hero-card-status">
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    Secure
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    Simple
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-check"></i>
+                    Online
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+<section class="stats">
+
+    <div class="container stats-grid">
+
+        <div class="stat-item">
+            <i class="fa-solid fa-users"></i>
+            <div>
+                <h3>Client Focused</h3>
+                <p>Simple & Easy Process</p>
+            </div>
+        </div>
+
+        <div class="stat-item">
+            <i class="fa-solid fa-lock"></i>
+            <div>
+                <h3>Secure</h3>
+                <p>Document Management</p>
+            </div>
+        </div>
+
+        <div class="stat-item">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+                <h3>Track Status</h3>
+                <p>Real-Time Updates</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT SECTION -->
+<section class="section about-section">
+
+    <div class="container about-grid">
+
+        <div class="about-image">
+
+            <div class="about-shape"></div>
+
+            <div class="about-icon">
+                <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+
+        </div>
+
+
+        <div class="about-content">
+
+            <span class="section-tag">
+                ABOUT KHAN LAW ASSOCIATES
+            </span>
+
+            <h2>
+                Professional Support for Your
+                <span>Tax Requirements</span>
+            </h2>
+
+            <p>
+                Khan Law Associates provides professional assistance in
+                tax-related services and helps clients manage their
+                information and documentation efficiently.
+            </p>
+
+            <p>
+                Our digital system allows clients to register online,
+                submit documents and conveniently track their
+                application status.
+            </p>
+
+            <a href="{% url 'about' %}" class="outline-btn">
+                Learn More
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SERVICES -->
+<section class="section services-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-tag">OUR SERVICES</span>
+
+            <h2>Professional Tax Services</h2>
+
+            <p>
+                Explore our range of tax-related services designed
+                to assist individuals and businesses.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+
+                <h3>NTN Registration</h3>
+
+                <p>
+                    Assistance with taxpayer registration and NTN-related
+                    documentation processes.
+                </p>
+
+                <a href="{% url 'services' %}">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+
+                <h3>Income Tax Return</h3>
+
+                <p>
+                    Professional support for preparing and managing
+                    income tax return information.
+                </p>
+
+                <a href="{% url 'services' %}">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <h3>Sales Tax Services</h3>
+
+                <p>
+                    Assistance with sales tax registration and
+                    related documentation requirements.
+                </p>
+
+                <a href="{% url 'services' %}">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-comments-dollar"></i>
+                </div>
+
+                <h3>Tax Consultancy</h3>
+
+                <p>
+                    Professional consultation and guidance for
+                    tax-related matters and documentation.
+                </p>
+
+                <a href="{% url 'services' %}">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="section workflow-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-tag">HOW IT WORKS</span>
+
+            <h2>A Simple Digital Process</h2>
+
+            <p>
+                Manage your application through a simple and organized process.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-grid">
+
+            <div class="workflow-item">
+
+                <div class="step-number">01</div>
+
+                <div class="workflow-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <h3>Create Account</h3>
+
+                <p>
+                    Register and create your secure client account.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-item">
+
+                <div class="step-number">02</div>
+
+                <div class="workflow-icon">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <h3>Provide Information</h3>
+
+                <p>
+                    Complete your personal and tax-related information.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-item">
+
+                <div class="step-number">03</div>
+
+                <div class="workflow-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+
+                <h3>Upload Documents</h3>
+
+                <p>
+                    Upload required documents securely through the system.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-item">
+
+                <div class="step-number">04</div>
+
+                <div class="workflow-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+
+                <h3>Track Status</h3>
+
+                <p>
+                    Monitor your application progress from your dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="section why-section">
+
+    <div class="container why-grid">
+
+        <div>
+
+            <span class="section-tag">
+                WHY CHOOSE OUR PLATFORM
+            </span>
+
+            <h2>
+                A Better Way to Manage
+                <span>Tax Applications</span>
+            </h2>
+
+            <p>
+                Our system is designed to make client registration,
+                document submission and application tracking more
+                organized and convenient.
+            </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+            <div class="feature">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+                    <h3>Secure System</h3>
+                    <p>Protected client information management.</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+                <div>
+                    <h3>Easy Documents</h3>
+                    <p>Simple online document submission.</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <div>
+                    <h3>Status Updates</h3>
+                    <p>Track your application progress.</p>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <div>
+                    <h3>Client Focused</h3>
+                    <p>A convenient experience for clients.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section">
+
+    <div class="container cta-content">
+
+        <div>
+
+            <h2>Ready to Get Started?</h2>
+
+            <p>
+                Create your account and begin managing your tax
+                service application online.
+            </p>
+
+        </div>
+
+        <a href="{% url 'client_register' %}" class="cta-btn">
+
+            Register Now
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

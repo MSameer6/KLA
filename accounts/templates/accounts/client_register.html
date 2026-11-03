@@ -1,0 +1,52 @@
+{% extends "accounts/auth_base.html" %}
+{% block title %}Client Register{% endblock %}
+{% block content %}
+<div class="label client">CLIENT REGISTRATION</div>
+<h2>Create Your Account</h2>
+<p>Complete your details and choose the services you need.</p>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.name == 'needs_ntn_return' or field.name == 'needs_sales_tax' or field.name == 'needs_income_tax' %}
+            {% if field.name == 'needs_ntn_return' %}<section class="service-panel"><div class="service-heading"><span class="service-heading-icon"><i class="fa-solid fa-briefcase"></i></span><div><h3>Services Required</h3><span>Select all services you need.</span></div></div><details class="service-dropdown"><summary><span class="dropdown-placeholder"><i class="fa-solid fa-list-check"></i> Choose services</span><span class="service-count">0 selected</span><i class="fa-solid fa-chevron-down dropdown-chevron"></i></summary><div class="service-menu">{% endif %}
+            <label class="service-option" for="{{ field.id_for_label }}">
+                <span class="service-number" aria-hidden="true">{% if field.name == 'needs_ntn_return' %}01{% elif field.name == 'needs_sales_tax' %}02{% else %}03{% endif %}</span>
+                <span class="service-copy">
+                    <strong>{{ field.label }}</strong>
+                    {% if field.name == 'needs_ntn_return' %}<small>NTN registration and annual return filing</small>{% endif %}
+                    {% if field.name == 'needs_sales_tax' %}<small>Sales tax registration and periodic returns</small>{% endif %}
+                    {% if field.name == 'needs_income_tax' %}<small>Preparation and filing of income tax returns</small>{% endif %}
+                </span>
+                {{ field }}
+            </label>
+            {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            {% if field.name == 'needs_income_tax' %}</div></details><div class="selected-services" aria-live="polite"></div></section>{% endif %}
+        {% else %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="input-wrap">{{ field }}{% if field.name == 'password' or field.name == 'confirm_password' %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div>
+                {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+    <button class="auth-button"><i class="fa-solid fa-lock"></i> Create Client Account</button>
+</form>
+<p class="center">Already registered? <a href="{% url 'client_login' %}">Login here</a></p>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.service-dropdown');
+    if (!dropdown) return;
+    const count = dropdown.querySelector('.service-count');
+    const preview = document.querySelector('.selected-services');
+    const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+    function updateServices() {
+        const selected = Array.from(checkboxes).filter(box => box.checked);
+        count.textContent = selected.length + (selected.length === 1 ? ' service selected' : ' services selected');
+        preview.innerHTML = selected.map(box => '<span class="selected-service-tag">' + box.closest('label').querySelector('.service-copy strong').textContent + '</span>').join('');
+    }
+    checkboxes.forEach(box => box.addEventListener('change', updateServices));
+    updateServices();
+});
+</script>
+{% endblock %}

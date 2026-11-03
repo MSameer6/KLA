@@ -1,0 +1,113 @@
+{% extends "website/base.html" %}
+
+{% block title %}Contact Us | Khan Law Associates{% endblock %}
+
+{% block content %}
+
+<section class="page-banner">
+
+    <div class="container">
+
+        <span>CONTACT US</span>
+
+        <h1>Get In Touch</h1>
+
+        <p>
+            Contact Khan Law Associates for further information.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="container contact-grid">
+
+        <!-- CONTACT INFO -->
+        <div class="contact-info">
+
+            <span class="section-tag">CONTACT INFORMATION</span>
+
+            <h2>Let's Start a Conversation</h2>
+
+            <p>
+                Contact us for information regarding our tax-related services.
+            </p>
+
+
+            <div class="contact-item">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+                    <h3>Location</h3>
+                    <p>Karachi, Pakistan</p>
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <div>
+                    <h3>Phone</h3>
+                    <p>+92 XXX XXXXXXX</p>
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <div>
+                    <h3>Email</h3>
+                    <p>info@khanlawassociates.com</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+        <form class="contact-form">
+
+            <div class="form-row">
+
+                <input type="text" placeholder="Your Name">
+
+                <input type="email" placeholder="Your Email">
+
+            </div>
+
+
+            <input type="text" placeholder="Subject">
+
+
+            <textarea
+                rows="6"
+                placeholder="Write your message">
+            </textarea>
+
+
+            <button type="submit" class="primary-btn">
+
+                Send Message
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

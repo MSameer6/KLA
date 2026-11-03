@@ -1,0 +1,22 @@
+.field textarea {
+    display: block;
+    width: 100%;
+    min-height: 84px;
+    padding: 14px;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background: #fff;
+    color: #172b43;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+    resize: vertical;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.field textarea::placeholder { color: #7b8492; opacity: 1; }
+.field textarea:focus {
+    outline: none;
+    border-color: #c8a76a;
+    box-shadow: 0 0 0 4px #c8a76a22;
+}

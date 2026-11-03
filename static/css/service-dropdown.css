@@ -1,0 +1,195 @@
+.service-panel {
+    position: relative;
+    overflow: visible;
+    margin: 25px 0 18px;
+    padding: 16px;
+    border: 1px solid #e3e8ed;
+    border-radius: 13px;
+    background: #f8fafc;
+}
+
+.service-panel .service-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    padding: 0 0 13px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.service-heading-icon {
+    display: grid;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid #eadbb7;
+    border-radius: 10px;
+    background: #fbf7ed;
+    color: #9a762e;
+    font-size: 14px;
+}
+
+.service-panel .service-heading h3 {
+    margin: 0;
+    color: #102a43;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.service-panel .service-heading div > span {
+    display: block;
+    margin-top: 4px;
+    color: #758397;
+    font-size: 11px;
+}
+
+.service-dropdown { position: relative; }
+
+.service-dropdown > summary {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 13px;
+    border: 1px solid #d5dde6;
+    border-radius: 9px;
+    background: #fff;
+    color: #19334d;
+    cursor: pointer;
+    list-style: none;
+    transition: border-color .18s, box-shadow .18s;
+}
+
+.service-dropdown > summary::-webkit-details-marker { display: none; }
+.service-dropdown > summary:hover,
+.service-dropdown[open] > summary {
+    border-color: #b7964b;
+    box-shadow: 0 0 0 2px rgba(183, 150, 75, .1);
+}
+
+.dropdown-placeholder {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 9px;
+    color: #536579;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.dropdown-placeholder i { color: #997832; }
+
+.service-count {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #f1f4f7;
+    color: #627386;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.service-dropdown[open] .service-count {
+    background: #f6f0e2;
+    color: #836622;
+}
+
+.dropdown-chevron {
+    color: #718096;
+    font-size: 11px;
+    transition: transform .18s;
+}
+
+.service-dropdown[open] .dropdown-chevron { transform: rotate(180deg); }
+
+.service-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid #dce3ea;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(16, 42, 67, .16);
+}
+
+.service-option {
+    display: flex !important;
+    align-items: center;
+    gap: 11px;
+    margin: 0 !important;
+    padding: 11px 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+}
+
+.service-option:hover { background: #f7f9fb; }
+.service-option:has(input:checked) {
+    border-color: #eadbb7;
+    background: #fbf8ef;
+}
+
+.service-number {
+    display: grid;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: 1px solid #e4d7b8;
+    border-radius: 50%;
+    background: #fbf7ed;
+    color: #8a6828;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.service-option:has(input:checked) .service-number {
+    border-color: #d4a017;
+    background: #102a43;
+    color: #f0cc78;
+}
+
+.service-option .service-copy { flex: 1; min-width: 0; }
+.service-option .service-copy strong {
+    display: block;
+    color: #19334d;
+    font-size: 12px;
+}
+
+.service-option .service-copy small {
+    display: block;
+    margin-top: 3px;
+    color: #728094;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.service-option input[type="checkbox"] {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #102a43;
+    cursor: pointer;
+}
+
+.service-option:focus-within { outline: 2px solid rgba(183, 150, 75, .4); }
+.selected-services { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.selected-service-tag {
+    padding: 4px 8px;
+    border: 1px solid #eadbb7;
+    border-radius: 20px;
+    background: #fbf7ed;
+    color: #70571e;
+    font-size: 10px;
+    font-weight: 600;
+}
