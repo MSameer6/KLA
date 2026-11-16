@@ -1,0 +1,74 @@
+.client-register-dialog{position:fixed;inset:0;width:min(1120px,calc(100vw - 32px));max-width:none;max-height:min(92vh,920px);margin:auto;padding:0;overflow:hidden;border:1px solid rgba(226,233,240,.9);border-radius:20px;background:#fff;color:#172b43;box-shadow:0 28px 90px rgba(0,0,0,.32)}
+.client-register-dialog[open]{display:flex;flex-direction:column}
+.client-register-dialog::backdrop{background:rgba(5,17,31,.72);backdrop-filter:blur(4px)}
+body:has(.client-register-dialog[open]){overflow:hidden}
+.client-register-dialog-header{position:sticky;z-index:2;top:0;display:flex;flex:0 0 auto;align-items:center;justify-content:space-between;gap:16px;padding:17px 26px;border-bottom:1px solid #e8edf2;background:rgba(255,255,255,.97)}
+.client-register-dialog-brand{display:flex;align-items:center;gap:12px}
+.client-register-dialog-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#10243d;color:#d5ad62;font-size:17px}
+.client-register-dialog-eyebrow{display:block;color:#9c793b;font-size:9px;font-weight:800;letter-spacing:1.6px}
+.client-register-dialog-brand h2{margin:3px 0 0;color:#10243d;font-size:20px;line-height:1.25}
+.client-register-dialog-close{display:grid;flex:0 0 38px;width:38px;height:38px;place-items:center;border:1px solid #e0e6ec;border-radius:10px;background:#fff;color:#607086;font-size:16px;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.client-register-dialog-close:hover{border-color:#d6c69e;background:#fbf8ef;color:#856728}
+.client-register-dialog-close:focus-visible{outline:3px solid rgba(183,150,75,.38);outline-offset:2px}
+.client-register-dialog-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:22px 30px 28px}
+.client-register-dialog-intro{margin:0 0 17px;color:#667085;font-size:13px;line-height:1.6}
+.client-register-dialog-section-title{margin:0 0 12px}
+.client-register-dialog-section-title h3{margin:0 0 4px;color:#10243d;font-size:15px;font-weight:750}
+.client-register-dialog-section-title span{color:#758397;font-size:11px;line-height:1.5}
+.client-register-dialog .registration-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:22px;align-items:start}
+.client-register-dialog .registration-form>.field{min-width:0;margin:8px 0}
+.client-register-dialog .registration-form .service-panel,.client-register-dialog .registration-form>.auth-button,.client-register-dialog .registration-form-error{grid-column:1/-1}
+.client-register-dialog .registration-form .service-panel{margin:13px 0 8px;padding:14px 15px 9px;border:1px solid #e3e8ed;border-radius:13px;background:#f8fafc}
+.client-register-dialog .registration-form .service-panel .service-heading{display:flex;align-items:center;gap:11px;margin:0 0 10px;padding:0 0 11px;border-bottom:1px solid #e5eaf0}
+.client-register-dialog .registration-form .service-heading-icon{display:grid;flex:0 0 34px;width:34px;height:34px;place-items:center;border:1px solid #eadbb7;border-radius:10px;background:#fbf7ed;color:#9a762e;font-size:13px}
+.client-register-dialog .registration-form .service-heading h3{margin:0;color:#102a43;font-size:15px;line-height:1.3}
+.client-register-dialog .registration-form .service-heading div>span{display:block;margin-top:3px;color:#758397;font-size:11px;line-height:1.45}
+.client-register-dialog .registration-form .registration-case-panel .field{margin:10px 0}
+.client-register-dialog .registration-form .field label{display:block;margin:0 0 6px;color:#344054;font-size:12px;font-weight:700}
+.client-register-dialog .registration-form .field .input-wrap{position:relative}
+.client-register-dialog .registration-form .field input:not([type=checkbox]),.client-register-dialog .registration-form .field textarea{display:block;width:100%;min-height:42px;padding:10px 12px;border:1px solid #d9dee7;border-radius:9px;background:#fff;color:#172b43;font:inherit;font-size:13px;transition:border-color .18s,box-shadow .18s}
+.client-register-dialog .registration-form .field textarea{min-height:68px;line-height:1.45;resize:vertical}
+.client-register-dialog .registration-form .field input:focus,.client-register-dialog .registration-form .field textarea:focus{outline:none;border-color:#c8a76a;box-shadow:0 0 0 3px rgba(200,167,106,.16)}
+.client-register-dialog .registration-form .toggle-password{position:absolute;top:50%;right:5px;width:auto;margin:0;padding:8px;transform:translateY(-50%);border:0;background:transparent;color:#667085;cursor:pointer}
+.client-register-dialog .registration-form .field .form-error,.client-register-dialog .registration-form .form-error{display:block;margin-top:5px;color:#b42318;font-size:11px;line-height:1.45}
+.client-register-dialog .registration-form .service-dropdown{position:relative}
+.client-register-dialog .registration-form .service-menu{z-index:5}
+.client-register-dialog .registration-form .selected-services{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.client-register-dialog .registration-form .selected-service-tag{padding:4px 8px;border:1px solid #eadbb7;border-radius:20px;background:#fbf7ed;color:#70571e;font-size:10px;font-weight:600}
+.client-register-dialog .registration-form .supporting-file-picker{position:relative;display:flex;min-height:125px;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden;padding:15px;border:1px dashed #c5ced8;border-radius:12px;background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);color:#344054;text-align:center;transition:border-color .18s,background .18s,box-shadow .18s}
+.client-register-dialog .registration-form .supporting-file-picker:hover,.client-register-dialog .registration-form .supporting-file-picker.is-dragging,.client-register-dialog .registration-form .supporting-file-picker:focus-within{border-color:#b7964b;background:#fffcf5;box-shadow:0 0 0 3px rgba(183,150,75,.12)}
+.client-register-dialog .registration-form .supporting-file-icon{display:grid;width:36px;height:36px;place-items:center;border:1px solid #eadbb7;border-radius:11px;background:#fbf7ed;color:#9a762e;font-size:15px}
+.client-register-dialog .registration-form .supporting-file-prompt{display:flex;flex-direction:column;gap:3px}
+.client-register-dialog .registration-form .supporting-file-prompt strong{color:#102a43;font-size:12px}
+.client-register-dialog .registration-form .supporting-file-prompt>span,.client-register-dialog .registration-form .supporting-file-picker>small{color:#758397;font-size:10px}
+.client-register-dialog .registration-form .supporting-file-browse{display:inline-flex;align-items:center;gap:6px;margin:0;padding:7px 11px;border:1px solid #d9c79d;border-radius:8px;background:#fff;color:#795c25;font-size:10px;font-weight:700;cursor:pointer}
+.client-register-dialog .registration-form .supporting-file-picker input.supporting-file-input{position:absolute;top:50%;left:50%;width:1px;height:1px;overflow:hidden;opacity:0}
+.client-register-dialog .registration-form .supporting-file-selection{margin-top:8px}
+.client-register-dialog .registration-form .supporting-file-selection[hidden]{display:none}
+.client-register-dialog .registration-form .supporting-file-selection-heading{display:flex;justify-content:space-between;gap:10px;color:#536579;font-size:11px}
+.client-register-dialog .registration-form .supporting-file-clear{border:0;background:none;color:#9b7737;font-size:10px;font-weight:700;cursor:pointer}
+.client-register-dialog .registration-form .supporting-file-list{display:grid;gap:6px;margin:7px 0 0;padding:0;list-style:none}
+.client-register-dialog .registration-form .supporting-file-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #e5eaf0;border-radius:8px;background:#fff}
+.client-register-dialog .registration-form .supporting-file-type-icon{color:#526b83}
+.client-register-dialog .registration-form .supporting-file-info{display:flex;min-width:0;flex:1;flex-direction:column}
+.client-register-dialog .registration-form .supporting-file-name{overflow:hidden;color:#344054;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.client-register-dialog .registration-form .supporting-file-info small{color:#7b8797;font-size:9px}
+.client-register-dialog .registration-form .supporting-file-remove{display:grid;width:25px;height:25px;place-items:center;border:0;border-radius:7px;background:transparent;color:#8490a0;cursor:pointer}
+.client-register-dialog .registration-form .auth-button{display:block;width:100%;margin:12px 0 0;padding:13px;border:0;border-radius:10px;background:#10243d;color:white;font-size:13px;font-weight:700;text-align:center;cursor:pointer;transition:background .18s,transform .18s}
+.client-register-dialog .registration-form .auth-button:hover{transform:translateY(-1px);background:#183454}
+.client-login-dialog .client-register-dialog-body{padding-top:27px}
+.client-login-dialog .client-login-form{max-width:520px;margin:0 auto}
+.client-login-dialog .client-login-form .field{margin:14px 0}
+.client-login-dialog .client-login-form .field label{display:block;margin:0 0 7px;color:#344054;font-size:12px;font-weight:700}
+.client-login-dialog .client-login-form .input-wrap{position:relative}
+.client-login-dialog .client-login-form .field input{display:block;width:100%;min-height:44px;padding:11px 42px 11px 12px;border:1px solid #d9dee7;border-radius:9px;background:#fff;color:#172b43;font:inherit;font-size:13px}
+.client-login-dialog .client-login-form .field input:focus{outline:none;border-color:#c8a76a;box-shadow:0 0 0 3px rgba(200,167,106,.16)}
+.client-login-dialog .client-login-form .toggle-password{position:absolute;top:50%;right:5px;width:auto;margin:0;padding:8px;transform:translateY(-50%);border:0;background:transparent;color:#667085;cursor:pointer}
+.client-login-dialog .client-login-form .auth-button{display:block;width:100%;margin:16px 0 0;padding:13px;border:0;border-radius:10px;background:#10243d;color:#fff;font-size:13px;font-weight:700;text-align:center;cursor:pointer}
+.client-login-dialog .client-login-form .auth-button:hover{background:#183454}
+.client-login-dialog .client-login-switch{margin:17px 0 0;color:#667085;font-size:12px;text-align:center}
+.client-login-dialog .client-login-switch a{color:#9b7737;font-weight:700;text-decoration:none}
+.client-register-dialog .center{margin:13px 0 0;color:#667085;font-size:12px;text-align:center}
+.client-register-dialog .center a{color:#9b7737;font-weight:700;text-decoration:none}
+@media(max-width:700px){.client-register-dialog{width:calc(100vw - 20px);max-height:94vh;border-radius:15px}.client-register-dialog-header{padding:13px 16px}.client-register-dialog-body{padding:17px 16px 21px}.client-register-dialog .registration-form{grid-template-columns:1fr;column-gap:0}.client-register-dialog .registration-form .service-panel,.client-register-dialog .registration-form>.auth-button,.client-register-dialog .registration-form-error{grid-column:auto}.client-register-dialog .registration-form .service-panel{grid-column:1/-1}}
+@media(max-width:420px){.client-register-dialog-brand h2{font-size:17px}.client-register-dialog-intro{font-size:12px}}

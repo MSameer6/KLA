@@ -1,0 +1,54 @@
+{% extends "dashboard/base.html" %}
+{% block page_title %}Invoice Management{% endblock %}
+{% block content %}
+<div class="row row-cards">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header"><h3 class="card-title">Create client invoice</h3></div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-primary w-100">Create invoice</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header"><div><h3 class="card-title mb-0">Client invoices</h3><div class="text-muted small">Client payment options are demo-only. Verify payment separately before marking an invoice as paid.</div></div></div>
+            <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                    <thead><tr><th>Invoice</th><th>Client</th><th>Amount</th><th>Due</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                    {% for invoice in invoices %}
+                    <tr>
+                        <td><div class="fw-bold">{{ invoice.invoice_number }}</div><div class="text-muted small">{{ invoice.description }}</div></td>
+                        <td>{{ invoice.client.full_name }}</td>
+                        <td>PKR {{ invoice.amount|floatformat:2 }}</td>
+                        <td>{{ invoice.due_date|date:"d M Y"|default:"—" }}</td>
+                        <td><span class="badge {% if invoice.status == 'Paid' %}bg-green-lt text-green{% else %}bg-yellow-lt text-yellow{% endif %}">{{ invoice.status }}</span></td>
+                        <td class="text-end">
+                            <form method="post" action="{% url 'update_invoice_status' invoice.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="{% if invoice.status == 'Paid' %}Pending{% else %}Paid{% endif %}">
+                                <button class="btn btn-sm btn-outline-primary">{% if invoice.status == "Paid" %}Mark pending{% else %}Mark paid{% endif %}</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="text-center py-5 text-muted">No client invoices created yet.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "accounts/auth_base.html" %}
+{% load static %}
+{% block title %}Profile &amp; Service Request | Khan Law Associates{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/client_registration.css' %}?v=20261112-1">
+<main class="document-workspace">
+    <header class="document-hero">
+        <div class="document-hero-copy">
+            <span class="document-eyebrow"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> CLIENT PROFILE</span>
+            <h2>Profile &amp; service request</h2>
+            <p>Add your tax and business details, choose the services you need, and securely send supporting files to our team.</p>
+        </div>
+        <a class="document-dashboard-link" href="{% url 'client_portal' %}">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Client dashboard
+        </a>
+    </header>
+
+    <section class="document-upload-panel service-request-panel" aria-labelledby="profile-request-title">
+        <div class="document-section-heading">
+            <span class="document-heading-icon"><i class="fa-solid fa-file-circle-check" aria-hidden="true"></i></span>
+            <div>
+                <h3 id="profile-request-title">Your details and requested services</h3>
+                <p>You can update your profile or submit more files whenever you need.</p>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="document-upload-form">
+            {% csrf_token %}
+            {% for field in form %}
+            {% if field.name == "needs_ntn_return" or field.name == "needs_sales_tax" or field.name == "needs_income_tax" %}
+            <label class="service-request-choice">
+                {{ field }}
+                <span><strong>{{ field.label }}</strong>
+                    {% if field.name == "needs_ntn_return" %}<small>NTN registration and annual return filing · PKR 5,000</small>{% endif %}
+                    {% if field.name == "needs_sales_tax" %}<small>Sales tax registration and periodic returns · PKR 20,000/month</small>{% endif %}
+                    {% if field.name == "needs_income_tax" %}<small>Preparation and filing of income tax returns · PKR 20,000</small>{% endif %}
+                </span>
+            </label>
+            {% else %}
+            <div class="document-form-field{% if field.name == 'case_details' or field.name == 'supporting_files' %} document-notes-field{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<small class="document-help">{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<small class="document-error">{{ error }}</small>{% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}<p class="document-error document-notes-field">{{ error }}</p>{% endfor %}
+            <div class="document-upload-actions">
+                <span><i class="fa-solid fa-lock" aria-hidden="true"></i> Files are visible only to you and authorized staff.</span>
+                <button class="auth-button" type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Save &amp; submit request</button>
+            </div>
+        </form>
+    </section>
+</main>
+{% endblock %}

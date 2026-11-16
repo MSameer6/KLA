@@ -1,0 +1,188 @@
+<section class="document-workspace" aria-label="Client documents and cases">
+    <header class="document-hero">
+        <div class="document-hero-copy">
+            <span class="document-eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> SECURE CLIENT WORKSPACE</span>
+            <h2>Documents &amp; cases</h2>
+            <p>Update your details, request services, upload documents, check review feedback, and follow your cases in one place.</p>
+        </div>
+    </header>
+
+    <section class="document-summary" aria-label="Your document and case summary">
+        <article class="document-summary-card">
+            <span class="document-summary-icon"><i class="fa-regular fa-folder-open" aria-hidden="true"></i></span>
+            <span class="document-summary-label">My documents</span>
+            <strong>{{ document_count }}</strong>
+        </article>
+        <article class="document-summary-card">
+            <span class="document-summary-icon review"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+            <span class="document-summary-label">Awaiting review</span>
+            <strong>{{ pending_document_count }}</strong>
+        </article>
+        <article class="document-summary-card">
+            <span class="document-summary-icon cases"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+            <span class="document-summary-label">Service cases</span>
+            <strong>{{ case_count }}</strong>
+        </article>
+    </section>
+
+    <section class="document-content-section" aria-labelledby="client-profile-title">
+        <div class="document-section-title">
+            <div><span class="document-eyebrow">YOUR PROFILE</span><h3 id="client-profile-title">Client details</h3></div>
+            <a class="document-open-link" href="#profile-request">Update profile</a>
+        </div>
+        <div class="portal-list">
+            <div>
+                <strong>Contact information</strong>
+                <span>Name: {{ client.full_name }}</span>
+                <span>Email: {{ client.email|default:"Not provided" }}</span>
+                <span>Phone: {{ client.phone|default:"Not provided" }}</span>
+                <span>Address: {{ client.address|default:"Not provided" }}</span>
+            </div>
+            <div>
+                <strong>Business and tax information</strong>
+                <span>Business details: {{ client.business_details|default:"Not provided" }}</span>
+                <span>NTN: {{ client.ntn|default:"Not provided" }}</span>
+                <span>Tax information: {{ client.tax_information|default:"Not provided" }}</span>
+            </div>
+        </div>
+    </section>
+
+    <details class="document-upload-panel service-request-panel" id="profile-request"{% if service_request_form.errors %} open{% endif %}>
+        <summary class="document-section-heading service-request-summary">
+            <span class="document-heading-icon"><i class="fa-solid fa-user-pen" aria-hidden="true"></i></span>
+            <div>
+                <h3 id="profile-request-title">Profile details &amp; service request</h3>
+                <p>Expand to update your address, tax or business details, or request another service.</p>
+            </div>
+        </summary>
+        <form method="post" action="{% url 'client_service_request' %}" enctype="multipart/form-data" class="document-upload-form">
+            {% csrf_token %}
+            {% for field in service_request_form %}
+            {% if field.name == "needs_ntn_return" or field.name == "needs_sales_tax" or field.name == "needs_income_tax" %}
+            <label class="service-request-choice">
+                {{ field }}
+                <span><strong>{{ field.label }}</strong>
+                    {% if field.name == "needs_ntn_return" %}<small>NTN registration and annual return filing · PKR 5,000</small>{% endif %}
+                    {% if field.name == "needs_sales_tax" %}<small>Sales tax registration and periodic returns · PKR 20,000/month</small>{% endif %}
+                    {% if field.name == "needs_income_tax" %}<small>Preparation and filing of income tax returns · PKR 20,000</small>{% endif %}
+                </span>
+            </label>
+            {% else %}
+            <div class="document-form-field{% if field.name == 'case_details' or field.name == 'supporting_files' %} document-notes-field{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<small class="document-help">{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<small class="document-error">{{ error }}</small>{% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for error in service_request_form.non_field_errors %}<p class="document-error document-notes-field">{{ error }}</p>{% endfor %}
+            <div class="document-upload-actions">
+                <span><i class="fa-solid fa-lock" aria-hidden="true"></i> Your files are only available to you and authorized staff.</span>
+                <button class="auth-button" type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Save &amp; submit request</button>
+            </div>
+        </form>
+    </details>
+
+    <section class="document-upload-panel" id="document-upload" aria-labelledby="upload-documents-title">
+        <div class="document-section-heading">
+            <span class="document-heading-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
+            <div>
+                <h3 id="upload-documents-title">Upload a document</h3>
+                <p>Choose the related case and add a file for our team to review.</p>
+            </div>
+        </div>
+        <form method="post" action="{% url 'client_documents' %}" enctype="multipart/form-data" class="document-upload-form">
+            {% csrf_token %}
+            {% for field in upload_form %}
+            <div class="document-form-field{% if field.name == 'notes' %} document-notes-field{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<small class="document-help">{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<small class="document-error">{{ error }}</small>{% endfor %}
+            </div>
+            {% endfor %}
+            {% for error in upload_form.non_field_errors %}<p class="document-error">{{ error }}</p>{% endfor %}
+            <div class="document-upload-actions">
+                <span><i class="fa-solid fa-lock" aria-hidden="true"></i> Your files are only available to you and authorized staff.</span>
+                <button class="auth-button" type="submit"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i> Upload document</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="document-content-section" aria-labelledby="my-documents-title">
+        <div class="document-section-title">
+            <div><span class="document-eyebrow">YOUR FILES</span><h3 id="my-documents-title">My documents</h3></div>
+            <span class="document-count">{{ document_count }} total</span>
+        </div>
+        <div class="document-record-grid">
+            {% for document in documents %}
+            <article class="document-record">
+                <span class="document-record-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></span>
+                <div class="document-record-main">
+                    <div class="document-record-heading">
+                        <h4>{{ document.title }}</h4>
+                        <span class="document-status status-{{ document.review_status|slugify }}">{{ document.review_status }}</span>
+                    </div>
+                    <p>{{ document.get_document_type_display }}{% if document.tax_case %} <span>·</span> {{ document.tax_case.service_type }}{% endif %}</p>
+                    <p class="document-upload-date">Uploaded {{ document.uploaded_at|date:"d M Y" }}</p>
+                    {% if document.reviewer_notes %}<div class="document-feedback"><strong>Reviewer note</strong><span>{{ document.reviewer_notes }}</span></div>{% endif %}
+                    {% if document.missing_or_corrected_request %}<div class="document-feedback correction"><strong>Action requested</strong><span>{{ document.missing_or_corrected_request }}</span></div>{% endif %}
+                </div>
+                <a class="document-open-link" href="{% url 'download_document' document.pk %}" target="_blank" rel="noopener noreferrer">Open <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </article>
+            {% empty %}
+            <div class="document-empty-state">
+                <span><i class="fa-regular fa-folder-open" aria-hidden="true"></i></span>
+                <h4>No documents uploaded yet</h4>
+                <p>When you upload a file, it will appear here with its review status and any notes from our team.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="document-content-section case-section" id="service-cases" aria-labelledby="my-cases-title">
+        <div class="document-section-title">
+            <div><span class="document-eyebrow">SERVICE PROGRESS</span><h3 id="my-cases-title">My tax cases</h3></div>
+            <span class="document-count">{{ case_count }} total</span>
+        </div>
+        <div class="case-record-grid">
+            {% for case in tax_cases %}
+            <article class="case-record">
+                <div class="case-record-top">
+                    <span class="case-record-icon"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span>
+                    <span class="case-status">{{ case.status }}</span>
+                </div>
+                <h4>{{ case.service_type }}</h4>
+                <p>Opened {{ case.opened_date|date:"d M Y" }}</p>
+                {% if case.target_date %}<p>Target completion {{ case.target_date|date:"d M Y" }}</p>{% endif %}
+                <a href="{% url 'client_case_detail' case.pk %}">View case updates and files <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+            {% empty %}
+            <div class="document-empty-state case-empty-state">
+                <span><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+                <h4>No tax cases yet</h4>
+                <p>Your service cases will appear here after your request is received by our team.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="document-content-section" aria-labelledby="recent-updates-title">
+        <div class="document-section-title">
+            <div><span class="document-eyebrow">LATEST ACTIVITY</span><h3 id="recent-updates-title">Recent updates</h3></div>
+            <span class="document-count">{{ unread_notifications }} unread</span>
+        </div>
+        <div class="portal-list">
+            {% for notification in notifications %}
+            <div>
+                <strong>{{ notification.title }}{% if not notification.is_read %} · New{% endif %}</strong>
+                <span>{{ notification.message }}</span>
+                <span>{{ notification.created_at|date:"d M Y, H:i" }}</span>
+            </div>
+            {% empty %}
+            <div><span>No updates have been posted yet. New case and document updates will appear here.</span></div>
+            {% endfor %}
+        </div>
+    </section>
+</section>

@@ -1,0 +1,183 @@
+<form method="post" action="{% url 'client_register' %}" enctype="multipart/form-data" class="registration-form">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if compact %}
+            {% if field.name == 'first_name' or field.name == 'last_name' or field.name == 'username' or field.name == 'email' or field.name == 'password' or field.name == 'confirm_password' or field.name == 'cnic' or field.name == 'phone' %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="input-wrap">{{ field }}{% if field.name == 'password' or field.name == 'confirm_password' %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div>
+                {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            </div>
+            {% endif %}
+        {% else %}
+        {% if field.name == 'case_details' or field.name == 'supporting_files' %}
+        {% elif field.name == 'needs_ntn_return' or field.name == 'needs_sales_tax' or field.name == 'needs_income_tax' %}
+            {% if field.name == 'needs_ntn_return' %}<section class="service-panel"><div class="service-heading"><span class="service-heading-icon"><i class="fa-solid fa-briefcase"></i></span><div><h3>Services Required</h3><span>Select all services you need.</span></div></div><details class="service-dropdown"><summary><span class="dropdown-placeholder"><i class="fa-solid fa-list-check"></i> Choose services</span><span class="service-count">0 selected</span><i class="fa-solid fa-chevron-down dropdown-chevron"></i></summary><div class="service-menu">{% endif %}
+            <label class="service-option" for="{{ field.id_for_label }}">
+                <span class="service-number" aria-hidden="true">{% if field.name == 'needs_ntn_return' %}01{% elif field.name == 'needs_sales_tax' %}02{% else %}03{% endif %}</span>
+                <span class="service-copy">
+                    <strong>{{ field.label }}</strong>
+                    {% if field.name == 'needs_ntn_return' %}<small>NTN registration and annual return filing · PKR 5,000 (discounted from PKR 7,000)</small>{% endif %}
+                    {% if field.name == 'needs_sales_tax' %}<small>Sales tax registration and periodic returns · PKR 20,000/month</small>{% endif %}
+                    {% if field.name == 'needs_income_tax' %}<small>Preparation and filing of income tax returns · PKR 20,000</small>{% endif %}
+                </span>
+                {{ field }}
+            </label>
+            {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            {% if field.name == 'needs_income_tax' %}</div></details><div class="selected-services" aria-live="polite"></div></section>{% endif %}
+        {% else %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="input-wrap">{{ field }}{% if field.name == 'password' or field.name == 'confirm_password' %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div>
+                {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            </div>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}<small class="form-error registration-form-error">{{ error }}</small>{% endfor %}
+    {% if not compact %}
+    <section class="service-panel registration-case-panel">
+        <div class="service-heading"><span class="service-heading-icon"><i class="fa-solid fa-folder-open"></i></span><div><h3>Case &amp; Supporting Files</h3><span>We’ll open a case for each service you select. Add details and attach any available documents.</span></div></div>
+        <div class="field">
+            <label for="{{ form.case_details.id_for_label }}">{{ form.case_details.label }}</label>
+            <div class="input-wrap">{{ form.case_details }}</div>
+            {% for error in form.case_details.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="field">
+            <label for="{{ form.supporting_files.id_for_label }}">{{ form.supporting_files.label }}</label>
+            <div class="supporting-file-picker">
+                <span class="supporting-file-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
+                <span class="supporting-file-prompt"><strong>Drop your files here</strong><span>or browse from your device</span></span>
+                <label class="supporting-file-browse" for="{{ form.supporting_files.id_for_label }}"><i class="fa-regular fa-folder-open" aria-hidden="true"></i> Browse files</label>
+                {{ form.supporting_files }}
+                <small>PDF, JPG, PNG, DOC or DOCX · Up to 10 MB per file</small>
+            </div>
+            {% for error in form.supporting_files.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            <div class="supporting-file-selection" hidden>
+                <div class="supporting-file-selection-heading">
+                    <strong class="supporting-file-count" aria-live="polite"></strong>
+                    <button class="supporting-file-clear" type="button">Remove all</button>
+                </div>
+                <ul class="supporting-file-list" aria-label="Selected supporting files"></ul>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <button class="auth-button" type="submit"><i class="fa-solid fa-lock"></i> Create Client Account</button>
+</form>
+<p class="center">Already registered? <a href="{% url 'client_login' %}" data-open-client-login>Login here</a></p>
+{% if not compact %}<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.registration-form');
+    if (!form) return;
+    const dropdown = form.querySelector('.service-dropdown');
+    if (dropdown) {
+        const count = dropdown.querySelector('.service-count');
+        const preview = form.querySelector('.selected-services');
+        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+        function updateServices() {
+            const selected = Array.from(checkboxes).filter(box => box.checked);
+            count.textContent = selected.length + (selected.length === 1 ? ' service selected' : ' services selected');
+            preview.replaceChildren(...selected.map(box => {
+                const tag = document.createElement('span');
+                tag.className = 'selected-service-tag';
+                tag.textContent = box.closest('label').querySelector('.service-copy strong').textContent;
+                return tag;
+            }));
+        }
+        checkboxes.forEach(box => box.addEventListener('change', function () {
+            updateServices();
+            dropdown.open = false;
+        }));
+        updateServices();
+    }
+
+    const fileInput = form.querySelector('.supporting-file-input');
+    const filePicker = form.querySelector('.supporting-file-picker');
+    const fileSelection = form.querySelector('.supporting-file-selection');
+    const fileCount = form.querySelector('.supporting-file-count');
+    const fileList = form.querySelector('.supporting-file-list');
+    if (!fileInput || !filePicker || !fileSelection || !fileCount || !fileList) return;
+
+    let selectedFiles = [];
+    function formatFileSize(bytes) {
+        if (bytes < 1024 * 1024) return Math.max(1, Math.round(bytes / 1024)) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+    function renderFiles() {
+        fileList.replaceChildren();
+        fileSelection.hidden = selectedFiles.length === 0;
+        fileCount.textContent = selectedFiles.length + (selectedFiles.length === 1 ? ' file selected' : ' files selected');
+        selectedFiles.forEach((file, index) => {
+            const item = document.createElement('li');
+            const icon = document.createElement('i');
+            const info = document.createElement('span');
+            const name = document.createElement('strong');
+            const size = document.createElement('small');
+            const remove = document.createElement('button');
+            item.className = 'supporting-file-item';
+            const extension = file.name.split('.').pop().toLowerCase();
+            const iconClass = ['jpg', 'jpeg', 'png'].includes(extension)
+                ? 'fa-file-image'
+                : extension === 'pdf'
+                    ? 'fa-file-pdf'
+                    : 'fa-file-word';
+            icon.className = 'supporting-file-type-icon fa-solid ' + iconClass;
+            icon.setAttribute('aria-hidden', 'true');
+            info.className = 'supporting-file-info';
+            name.className = 'supporting-file-name';
+            name.textContent = file.name;
+            size.textContent = formatFileSize(file.size);
+            remove.type = 'button';
+            remove.className = 'supporting-file-remove';
+            remove.setAttribute('aria-label', 'Remove ' + file.name);
+            remove.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+            remove.addEventListener('click', function () {
+                selectedFiles.splice(index, 1);
+                syncInputFiles();
+                renderFiles();
+            });
+            info.append(name, size);
+            item.append(icon, info, remove);
+            fileList.append(item);
+        });
+    }
+    function syncInputFiles() {
+        const transfer = new DataTransfer();
+        selectedFiles.forEach(file => transfer.items.add(file));
+        fileInput.files = transfer.files;
+    }
+    function addFiles(files) {
+        Array.from(files).forEach(file => {
+            const alreadyAdded = selectedFiles.some(existing =>
+                existing.name === file.name &&
+                existing.size === file.size &&
+                existing.lastModified === file.lastModified
+            );
+            if (!alreadyAdded) selectedFiles.push(file);
+        });
+        syncInputFiles();
+        renderFiles();
+    }
+    fileInput.addEventListener('change', function () {
+        addFiles(fileInput.files);
+    });
+    form.querySelector('.supporting-file-clear').addEventListener('click', function () {
+        selectedFiles = [];
+        syncInputFiles();
+        renderFiles();
+    });
+    ['dragenter', 'dragover'].forEach(eventName => filePicker.addEventListener(eventName, function (event) {
+        event.preventDefault();
+        filePicker.classList.add('is-dragging');
+    }));
+    ['dragleave', 'drop'].forEach(eventName => filePicker.addEventListener(eventName, function (event) {
+        event.preventDefault();
+        filePicker.classList.remove('is-dragging');
+    }));
+    filePicker.addEventListener('drop', function (event) {
+        addFiles(event.dataTransfer.files);
+    });
+});
+</script>
+{% endif %}

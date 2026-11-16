@@ -19,9 +19,12 @@
 <ul class="navbar-nav">
 <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}"><span class="nav-icon">⌂</span> Dashboard</a></li>
 <li class="nav-item"><a class="nav-link {% if '/clients/' in request.path %}active{% endif %}" href="{% url 'clients' %}"><span class="nav-icon">♟</span> Clients</a></li>
+<li class="nav-item"><a class="nav-link {% if '/cases/' in request.path %}active{% endif %}" href="{% url 'tax_cases' %}"><span class="nav-icon">▣</span> Service Cases</a></li>
 <li class="nav-item"><a class="nav-link {% if '/documents/' in request.path %}active{% endif %}" href="{% url 'documents' %}"><span class="nav-icon">▤</span> Documents</a></li>
 <li class="nav-item"><a class="nav-link {% if '/tax-returns/' in request.path %}active{% endif %}" href="{% url 'tax_returns' %}"><span class="nav-icon">▣</span> Tax Returns</a></li>
+<li class="nav-item"><a class="nav-link {% if '/invoices/' in request.path %}active{% endif %}" href="{% url 'invoices' %}"><span class="nav-icon">¤</span> Invoices</a></li>
 <li class="nav-item"><a class="nav-link {% if '/reports/' in request.path %}active{% endif %}" href="{% url 'reports' %}"><span class="nav-icon">◫</span> Reports</a></li>
+<li class="nav-item"><a class="nav-link {% if '/activity/' in request.path %}active{% endif %}" href="{% url 'activity_history' %}"><span class="nav-icon">◷</span> Activity History</a></li>
 </ul>
 </div>
 </div>
@@ -35,7 +38,7 @@
 <h2 class="page-title mb-0">{% block page_title %}Dashboard{% endblock %}</h2>
 </div>
 <div class="text-end">
-<div class="fw-bold" style="color:#102A43;">Administrator</div>
+<div class="fw-bold" style="color:#102A43;">{{ request.user.get_full_name|default:request.user.username }}</div>
 <div class="text-muted small">Khan Law Associates · <a href="{% url 'logout' %}">Logout</a></div>
 </div>
 </div>

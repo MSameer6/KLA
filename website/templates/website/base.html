@@ -17,6 +17,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="{% static 'css/website.css' %}">
+    <link rel="stylesheet" href="{% static 'css/service-dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'css/client-registration-popup.css' %}?v=20261115-1">
 </head>
 
 <body>
@@ -78,10 +80,10 @@
 
                 <!-- MOBILE LOGIN / REGISTER -->
                 <div class="mobile-nav-buttons">
-                    <a href="{% url 'client_login' %}" class="mobile-login">
+                    <a href="{% url 'client_login' %}" class="mobile-login" data-open-client-login>
                         <i class="fa-solid fa-right-to-bracket"></i> Login
                     </a>
-                    <a href="{% url 'client_register' %}" class="mobile-register">Register Now</a>
+                    <a href="{% url 'client_register' %}" class="mobile-register" data-open-client-registration>Register Now</a>
                     <a href="{% url 'staff_login' %}" class="mobile-staff"><i class="fa-solid fa-lock"></i> Staff Login</a>
                     <a href="{% url 'staff_register' %}" class="mobile-staff"><i class="fa-solid fa-user-plus"></i> Staff Register</a>
                 </div>
@@ -95,8 +97,8 @@
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'logout' %}" class="login-btn"><i class="fa-solid fa-lock-open"></i> Logout</a>
                 {% else %}
-                <a href="{% url 'client_login' %}" class="login-btn"><i class="fa-solid fa-lock"></i> Login</a>
-                <a href="{% url 'client_register' %}" class="register-btn"><i class="fa-solid fa-user-plus"></i> Client Register</a>
+                <a href="{% url 'client_login' %}" class="login-btn" data-open-client-login><i class="fa-solid fa-lock"></i> Login</a>
+                <a href="{% url 'client_register' %}" class="register-btn" data-open-client-registration><i class="fa-solid fa-user-plus"></i> Client Register</a>
                 <a href="{% url 'staff_register' %}" class="staff-btn"><i class="fa-solid fa-user-plus"></i> Staff Register</a>
                 {% endif %}
             </div>
@@ -109,6 +111,51 @@
 
         </div>
     </header>
+
+    {% if not request.user.is_authenticated %}
+    <dialog class="client-register-dialog" aria-labelledby="client-register-title">
+        <div class="client-register-dialog-header">
+            <div class="client-register-dialog-brand">
+                <span class="client-register-dialog-icon"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span>
+                <div><span class="client-register-dialog-eyebrow">KHAN LAW ASSOCIATES</span><h2 id="client-register-title">Client registration</h2></div>
+            </div>
+            <button type="button" class="client-register-dialog-close" aria-label="Close registration form"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="client-register-dialog-body">
+            <p class="client-register-dialog-intro">Create your secure client account with your contact details. You can add your tax profile, request services, and upload documents from your portal later.</p>
+            <div class="client-register-dialog-section-title">
+                <h3>Account &amp; contact details</h3>
+                <span>Start with the essentials. Your account is ready in just a few steps.</span>
+            </div>
+            {% include "accounts/partials/client_registration_form.html" with form=client_registration_form compact=True %}
+        </div>
+    </dialog>
+    <dialog class="client-register-dialog client-login-dialog" aria-labelledby="client-login-title">
+        <div class="client-register-dialog-header">
+            <div class="client-register-dialog-brand">
+                <span class="client-register-dialog-icon"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span>
+                <div><span class="client-register-dialog-eyebrow">KHAN LAW ASSOCIATES</span><h2 id="client-login-title">Client login</h2></div>
+            </div>
+            <button type="button" class="client-register-dialog-close" aria-label="Close login form"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="client-register-dialog-body client-login-dialog-body">
+            <p class="client-register-dialog-intro">Sign in to access your secure client workspace and service requests.</p>
+            <form method="post" action="{% url 'client_login' %}" class="client-login-form">
+                {% csrf_token %}
+                {% for field in client_login_form %}
+                <div class="field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <div class="input-wrap">{{ field }}{% if field.name == "password" %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div>
+                    {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+                </div>
+                {% endfor %}
+                {% for error in client_login_form.non_field_errors %}<small class="form-error registration-form-error">{{ error }}</small>{% endfor %}
+                <button class="auth-button" type="submit"><i class="fa-solid fa-lock" aria-hidden="true"></i> Secure Client Login</button>
+            </form>
+            <p class="center client-login-switch">New client? <a href="{% url 'client_register' %}" data-open-client-registration>Create an account</a></p>
+        </div>
+    </dialog>
+    {% endif %}
 
 
     <!-- PAGE CONTENT -->
@@ -277,6 +324,46 @@
 
 
     <script src="{% static 'js/website.js' %}"></script>
+    <script src="{% static 'js/auth.js' %}?v=20261114-1"></script>
+    {% if not request.user.is_authenticated %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const registrationDialog = document.querySelector('.client-register-dialog:not(.client-login-dialog)');
+        const loginDialog = document.querySelector('.client-login-dialog');
+        if (!registrationDialog || !loginDialog) return;
+
+        function openDialog(dialog, selector) {
+            [registrationDialog, loginDialog].forEach(openDialog => {
+                if (openDialog.open) openDialog.close();
+            });
+            dialog.showModal();
+            const firstInput = dialog.querySelector(selector);
+            if (firstInput) firstInput.focus({ preventScroll: true });
+        }
+
+        document.querySelectorAll('[data-open-client-registration]').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                openDialog(registrationDialog, '.registration-form input:not([type="hidden"])');
+            });
+        });
+        document.querySelectorAll('[data-open-client-login]').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                openDialog(loginDialog, '.client-login-form input:not([type="hidden"])');
+            });
+        });
+        [registrationDialog, loginDialog].forEach(dialog => {
+            dialog.querySelector('.client-register-dialog-close').addEventListener('click', function () {
+                dialog.close();
+            });
+            dialog.addEventListener('click', function (event) {
+                if (event.target === dialog) dialog.close();
+            });
+        });
+    });
+    </script>
+    {% endif %}
 
 </body>
 

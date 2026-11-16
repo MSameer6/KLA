@@ -1,0 +1,74 @@
+<section class="client-intake-section" aria-labelledby="client-details-heading">
+    <div class="client-intake-section-heading">
+        <span class="document-heading-icon"><i class="fa-solid fa-user" aria-hidden="true"></i></span>
+        <div>
+            <span class="document-eyebrow">YOUR PROFILE</span>
+            <h3 id="client-details-heading">Client and tax details</h3>
+            <p>Tell us where to reach you and share any tax or business information you have.</p>
+        </div>
+    </div>
+    <div class="client-intake-fields">
+    {% for field in form %}
+        {% if field.name == "needs_ntn_return" %}
+    </div>
+</section>
+<section class="client-intake-section" aria-labelledby="services-heading">
+    <div class="client-intake-section-heading">
+        <span class="document-heading-icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+        <div>
+            <span class="document-eyebrow">SELECT SERVICES</span>
+            <h3 id="services-heading">Services required</h3>
+            <p>Select all services you need. Our team will confirm the scope and fees with you.</p>
+        </div>
+    </div>
+    <div class="client-service-options">
+        {% endif %}
+        {% if field.name == "needs_ntn_return" or field.name == "needs_sales_tax" or field.name == "needs_income_tax" %}
+        <label class="service-request-choice">
+            {{ field }}
+            <span><strong>{{ field.label }}</strong>
+                {% if field.name == "needs_ntn_return" %}<small>NTN registration and annual return filing · PKR 5,000 (discounted from PKR 7,000)</small>{% endif %}
+                {% if field.name == "needs_sales_tax" %}<small>Sales tax registration and periodic returns · PKR 20,000/month</small>{% endif %}
+                {% if field.name == "needs_income_tax" %}<small>Preparation and filing of income tax returns · PKR 20,000</small>{% endif %}
+            </span>
+        </label>
+        {% if field.name == "needs_income_tax" %}
+    </div>
+</section>
+<section class="client-intake-section" aria-labelledby="case-files-heading">
+    <div class="client-intake-section-heading">
+        <span class="document-heading-icon"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></span>
+        <div>
+            <span class="document-eyebrow">REQUEST DETAILS</span>
+            <h3 id="case-files-heading">Case details &amp; supporting files</h3>
+            <p>Add a short explanation and attach documents you already have. You can provide additional files later if requested.</p>
+        </div>
+    </div>
+    <div class="client-intake-fields client-intake-case-fields">
+        {% endif %}
+        {% elif field.name == "case_details" or field.name == "supporting_files" %}
+        <div class="client-intake-field{% if field.name == 'case_details' or field.name == 'supporting_files' %} client-intake-field-wide{% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.name == "supporting_files" %}
+            <div class="client-intake-file-picker">
+                <span class="supporting-file-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
+                <span class="supporting-file-prompt"><strong>Choose supporting documents</strong><span>PDF, JPG, PNG, DOC or DOCX · Up to 10 MB per file</span></span>
+                {{ field }}
+            </div>
+            {% else %}
+                {{ field }}
+            {% endif %}
+            {% if field.help_text %}<small class="document-help">{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<small class="document-error">{{ error }}</small>{% endfor %}
+        </div>
+        {% else %}
+        <div class="client-intake-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<small class="document-help">{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<small class="document-error">{{ error }}</small>{% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</section>
