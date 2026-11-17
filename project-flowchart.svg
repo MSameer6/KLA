@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1680" viewBox="0 0 1600 1680" role="img" aria-labelledby="title description">
+  <title id="title">Khan Law Associates Portal - Project Flowchart</title>
+  <desc id="description">Flowchart of public, client, staff registration and approval, staff dashboard, and administrator workflows.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#edf2f7"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10243d"/>
+      <stop offset="1" stop-color="#234668"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#10243d" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#8090a1"/>
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#b7964b"/>
+    </marker>
+    <style>
+      text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#172b43}
+      .title{font-size:34px;font-weight:750;fill:#fff}
+      .subtitle{font-size:15px;fill:#dce5ef}
+      .section{font-size:18px;font-weight:750;fill:#10243d}
+      .section-tag{font-size:10px;font-weight:800;letter-spacing:1.6px;fill:#9b7737}
+      .node-title{font-size:16px;font-weight:700;fill:#10243d}
+      .node-copy{font-size:12px;fill:#5f6f82}
+      .small{font-size:11px;fill:#667085}
+      .label{font-size:11px;font-weight:700;fill:#74571f}
+      .box{fill:#fff;stroke:#dbe3eb;stroke-width:1.4;rx:14;filter:url(#shadow)}
+      .gold-box{fill:#fffcf5;stroke:#e6d5aa;stroke-width:1.4;rx:14;filter:url(#shadow)}
+      .blue-box{fill:#f4f7fb;stroke:#cad7e5;stroke-width:1.4;rx:14;filter:url(#shadow)}
+      .connector{fill:none;stroke:#8090a1;stroke-width:2.2;marker-end:url(#arrow)}
+      .connector-gold{fill:none;stroke:#b7964b;stroke-width:2.4;marker-end:url(#arrowGold)}
+      .lane{fill:#ffffff;fill-opacity:.74;stroke:#e1e7ee;stroke-width:1.3;rx:22}
+      .diamond{fill:#fffaf0;stroke:#d5bb78;stroke-width:1.6}
+    </style>
+  </defs>
+
+  <rect width="1600" height="1720" fill="url(#background)"/>
+  <rect x="44" y="36" width="1512" height="130" rx="22" fill="url(#navy)"/>
+  <circle cx="94" cy="101" r="28" fill="#d5ad62"/>
+  <path d="M94 82v37M79 91h30M82 91l-9 16h18l-9-16zm24 0-9 16h18l-9-16zM82 122h24" fill="none" stroke="#10243d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="title" x="142" y="94">Khan Law Associates Portal</text>
+  <text class="subtitle" x="144" y="123">Client services, staff operations, and administrator approval flow</text>
+
+  <rect class="box" x="520" y="195" width="560" height="82" rx="16"/>
+  <text class="node-title" x="800" y="228" text-anchor="middle">Visitor opens the website</text>
+  <text class="node-copy" x="800" y="250" text-anchor="middle">Home · About · Services · Contact</text>
+
+  <path class="connector" d="M800 277v34H300v27"/>
+  <path class="connector" d="M800 277v61"/>
+  <path class="connector" d="M800 311h500v27"/>
+
+  <rect class="lane" x="48" y="332" width="484" height="1130" rx="22"/>
+  <rect class="lane" x="558" y="332" width="484" height="1130" rx="22"/>
+  <rect class="lane" x="1068" y="332" width="484" height="1130" rx="22"/>
+
+  <text class="section-tag" x="78" y="372">01 / CLIENT</text>
+  <text class="section" x="78" y="399">Client portal</text>
+  <text class="section-tag" x="588" y="372">02 / STAFF</text>
+  <text class="section" x="588" y="399">Staff access &amp; work</text>
+  <text class="section-tag" x="1098" y="372">03 / ADMIN</text>
+  <text class="section" x="1098" y="399">Administrator approval</text>
+
+  <rect class="box" x="88" y="428" width="404" height="108" rx="14"/>
+  <text class="node-title" x="290" y="463" text-anchor="middle">Register or sign in</text>
+  <text class="node-copy" x="290" y="488" text-anchor="middle">Client Register / Client Login</text>
+  <text class="small" x="290" y="510" text-anchor="middle">New registration creates the account and client record</text>
+  <path class="connector" d="M290 536v42"/>
+  <polygon class="diamond" points="290,578 390,632 290,686 190,632"/>
+  <text class="node-title" x="290" y="628" text-anchor="middle">Valid client</text>
+  <text class="node-title" x="290" y="649" text-anchor="middle">account?</text>
+  <text class="label" x="399" y="618">YES</text>
+  <text class="label" x="133" y="618">NO</text>
+  <path class="connector-gold" d="M390 632h49v49"/>
+  <path class="connector" d="M190 632h-120v-150h18"/>
+  <text class="small" x="100" y="672">Fix details / try again</text>
+  <rect class="blue-box" x="112" y="690" width="356" height="92" rx="14"/>
+  <text class="node-title" x="290" y="726" text-anchor="middle">Client portal</text>
+  <text class="node-copy" x="290" y="751" text-anchor="middle">Secure client workspace</text>
+  <path class="connector" d="M290 782v44"/>
+  <rect class="box" x="88" y="826" width="404" height="145" rx="14"/>
+  <text class="node-title" x="290" y="860" text-anchor="middle">Client actions</text>
+  <text class="node-copy" x="290" y="886" text-anchor="middle">Request services and upload documents</text>
+  <text class="node-copy" x="290" y="909" text-anchor="middle">Track cases, document reviews, and updates</text>
+  <text class="node-copy" x="290" y="932" text-anchor="middle">View notifications and case status</text>
+  <rect class="gold-box" x="88" y="1000" width="404" height="105" rx="14"/>
+  <text class="node-title" x="290" y="1037" text-anchor="middle">Initial request setup</text>
+  <text class="node-copy" x="290" y="1062" text-anchor="middle">Selected services may create cases and invoice</text>
+  <text class="node-copy" x="290" y="1082" text-anchor="middle">Uploaded files are linked to the client record</text>
+  <path class="connector" d="M290 971v29"/>
+  <path class="connector" d="M290 1105v114"/>
+
+  <rect class="gold-box" x="598" y="428" width="404" height="96" rx="14"/>
+  <text class="node-title" x="800" y="463" text-anchor="middle">Request staff access</text>
+  <text class="node-copy" x="800" y="488" text-anchor="middle">Staff Register creates a pending staff profile</text>
+  <text class="small" x="800" y="508" text-anchor="middle">Pending accounts cannot enter the dashboard</text>
+  <path class="connector-gold" d="M800 524v48"/>
+  <rect class="gold-box" x="598" y="572" width="404" height="96" rx="14"/>
+  <text class="node-title" x="800" y="608" text-anchor="middle">Pending approval</text>
+  <text class="node-copy" x="800" y="633" text-anchor="middle">Wait for a superuser to activate the profile</text>
+  <path class="connector-gold" d="M1002 620h108"/>
+  <text class="label" x="1022" y="606">REVIEW</text>
+  <rect class="box" x="620" y="734" width="360" height="82" rx="14"/>
+  <text class="node-title" x="800" y="769" text-anchor="middle">Staff Login</text>
+  <text class="node-copy" x="800" y="793" text-anchor="middle">Username and password</text>
+  <path class="connector" d="M800 816v36"/>
+  <polygon class="diamond" points="800,852 900,906 800,960 700,906"/>
+  <text class="node-title" x="800" y="902" text-anchor="middle">Credentials valid</text>
+  <text class="node-title" x="800" y="923" text-anchor="middle">and Active?</text>
+  <text class="label" x="909" y="896">YES</text>
+  <text class="label" x="658" y="896">NO</text>
+  <path class="connector-gold" d="M900 906h45v58"/>
+  <path class="connector" d="M700 906h-110v-131h30"/>
+  <rect class="blue-box" x="598" y="964" width="404" height="84" rx="14"/>
+  <text class="node-title" x="800" y="999" text-anchor="middle">Staff dashboard</text>
+  <text class="node-copy" x="800" y="1023" text-anchor="middle">Management workspace</text>
+  <path class="connector" d="M800 1048v36"/>
+  <rect class="box" x="598" y="1084" width="404" height="148" rx="14"/>
+  <text class="node-title" x="800" y="1119" text-anchor="middle">Staff work</text>
+  <text class="node-copy" x="800" y="1145" text-anchor="middle">Manage clients and documents</text>
+  <text class="node-copy" x="800" y="1168" text-anchor="middle">Update cases, tasks, and tax returns</text>
+  <text class="node-copy" x="800" y="1191" text-anchor="middle">Manage invoices, reports, and activity</text>
+  <path class="connector" d="M800 1232v65"/>
+  <rect class="gold-box" x="598" y="1297" width="404" height="92" rx="14"/>
+  <text class="node-title" x="800" y="1333" text-anchor="middle">Client updates</text>
+  <text class="node-copy" x="800" y="1358" text-anchor="middle">Progress and notifications appear in client portal</text>
+
+  <rect class="box" x="1110" y="428" width="380" height="100" rx="14"/>
+  <text class="node-title" x="1300" y="463" text-anchor="middle">Create a superuser</text>
+  <text class="node-copy" x="1300" y="488" text-anchor="middle">One-time setup: manage.py createsuperuser</text>
+  <text class="small" x="1300" y="510" text-anchor="middle">Use the superuser credentials at /admin/</text>
+  <path class="connector" d="M1300 528v45"/>
+  <rect class="blue-box" x="1110" y="573" width="380" height="100" rx="14"/>
+  <text class="node-title" x="1300" y="609" text-anchor="middle">Django admin</text>
+  <text class="node-copy" x="1300" y="634" text-anchor="middle">Review Accounts → Profiles</text>
+  <text class="small" x="1300" y="654" text-anchor="middle">Open the staff member’s profile</text>
+  <path class="connector" d="M1300 673v37"/>
+  <rect class="box" x="1110" y="710" width="380" height="96" rx="14"/>
+  <text class="node-title" x="1300" y="747" text-anchor="middle">Review staff profile</text>
+  <text class="node-copy" x="1300" y="773" text-anchor="middle">Set account status to Active to approve</text>
+  <path class="connector" d="M1300 806v36"/>
+  <polygon class="diamond" points="1300,842 1400,896 1300,950 1200,896"/>
+  <text class="node-title" x="1300" y="892" text-anchor="middle">Approve</text>
+  <text class="node-title" x="1300" y="913" text-anchor="middle">request?</text>
+  <text class="label" x="1180" y="887">NO</text>
+  <text class="label" x="1310" y="980">YES</text>
+  <path class="connector" d="M1200 896h-150v-276h-48"/>
+  <path class="connector-gold" d="M1300 950v42"/>
+  <rect class="gold-box" x="1110" y="992" width="380" height="92" rx="14"/>
+  <text class="node-title" x="1300" y="1029" text-anchor="middle">Staff profile activated</text>
+  <text class="node-copy" x="1300" y="1054" text-anchor="middle">Staff user may now sign in</text>
+
+  <path class="connector-gold" d="M1110 1038h-58V775h-72"/>
+  <text class="label" x="1057" y="800">ACTIVE</text>
+  <path class="connector" d="M290 1105v389"/>
+  <path class="connector" d="M800 1389v105"/>
+  <path class="connector" d="M1300 1084v410"/>
+  <path d="M90 1494h1420l-42 72H132z" fill="#10243d" stroke="#b7964b" stroke-width="2"/>
+  <text x="800" y="1524" text-anchor="middle" style="font-size:15px;font-weight:700;fill:#fff">Shared project database</text>
+  <text x="800" y="1547" text-anchor="middle" style="font-size:11px;fill:#dce5ef">Users · profiles · clients · cases · files · returns · invoices</text>
+
+  <text class="small" x="800" y="1615" text-anchor="middle">Staff registration is not instant access: a superuser must set the profile status to Active.</text>
+  <text class="small" x="800" y="1643" text-anchor="middle">Built from the project’s Django routes and account workflows.</text>
+</svg>
