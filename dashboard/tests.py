@@ -395,15 +395,41 @@ class ClientWorkflowTests(TestCase):
         task.refresh_from_db()
         self.assertTrue(task.is_complete)
 
-    def test_public_staff_registration_does_not_create_an_account(self):
+    def test_staff_registration_requires_admin_approval_before_login(self):
+        login_page = self.client.get(reverse("staff_login"))
+        self.assertContains(login_page, "Request staff access")
+        self.assertContains(login_page, 'class="staff-register-dialog"')
+        self.assertContains(login_page, 'id="id_staff-register-username"')
+
         response = self.client.post(reverse("staff_register"), {
-            "first_name": "Public",
-            "last_name": "Applicant",
-            "username": "public-applicant",
-            "email": "public-applicant@example.com",
-            "password": "Secure-test-password-2026",
-            "confirm_password": "Secure-test-password-2026",
+            "staff-register-first_name": "Public",
+            "staff-register-last_name": "Applicant",
+            "staff-register-username": "public-applicant",
+            "staff-register-email": "public-applicant@example.com",
+            "staff-register-password": "Secure-test-password-2026",
+            "staff-register-confirm_password": "Secure-test-password-2026",
         })
 
         self.assertRedirects(response, reverse("staff_login"))
-        self.assertFalse(User.objects.filter(username="public-applicant").exists())
+        user = User.objects.get(username="public-applicant")
+        self.assertFalse(user.is_staff)
+        self.assertFalse(user.is_superuser)
+        self.assertEqual(user.profile.role, "STAFF")
+        self.assertEqual(user.profile.account_status, "PENDING")
+
+        response = self.client.post(reverse("staff_login"), {
+            "username": "public-applicant",
+            "password": "Secure-test-password-2026",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Your staff account is not active.")
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+        user.profile.account_status = "ACTIVE"
+        user.profile.save(update_fields=["account_status"])
+        response = self.client.post(reverse("staff_login"), {
+            "username": "public-applicant",
+            "password": "Secure-test-password-2026",
+        })
+        self.assertRedirects(response, reverse("home"))
+        self.assertEqual(self.client.session["_auth_user_id"], str(user.pk))

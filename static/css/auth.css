@@ -30,6 +30,50 @@
 .supporting-file-browse:hover{border-color:#b7964b;background:#fbf7ed}
 .field .supporting-file-picker input.supporting-file-input{position:absolute!important;top:50%!important;left:50%!important;width:1px!important;height:1px!important;min-width:0!important;padding:0!important;border:0!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;overflow:hidden!important;white-space:nowrap!important;opacity:0!important}
 .supporting-file-picker>small{color:#8490a0;font-size:10px}
+
+.auth-card:has(.staff-login-content){max-width:560px}
+.staff-login-content .label{display:inline-flex;align-items:center;gap:7px}
+.staff-login-content>h2{margin-top:17px;color:#10243d;font-size:30px;letter-spacing:-.5px}
+.staff-login-content>.auth-intro{margin:0 0 23px;font-size:14px}
+.staff-login-content .field{margin:17px 0}
+.staff-login-content .field label{color:#344054;font-size:13px}
+.staff-login-content .field input{min-height:48px;padding:13px 15px}
+.staff-login-content .auth-button{min-height:49px;display:flex;align-items:center;justify-content:center;gap:9px}
+.staff-login-content .staff-access-note{display:flex;align-items:flex-start;gap:11px;margin:20px 0 15px;padding:13px 14px;border:1px solid #eee4cc;border-radius:12px;background:#fffcf5;color:#775b27}
+.staff-access-note>i{margin-top:2px;color:#9b7737}
+.staff-access-note div{display:grid;gap:3px}
+.staff-access-note strong{font-size:12px}
+.staff-access-note span{color:#736b5b;font-size:11px;line-height:1.5}
+.staff-register-trigger{padding:0;border:0;border-bottom:1px solid currentColor;background:transparent;color:#8a6828;font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.staff-register-trigger:hover{color:#624a1e}
+.staff-register-dialog{width:min(600px,calc(100vw - 28px));max-height:min(90vh,780px);padding:0;overflow:hidden;border:1px solid #e2e9f0;border-radius:20px;background:#fff;color:#172b43;box-shadow:0 28px 90px #0005}
+.staff-register-dialog[open]{display:flex;flex-direction:column}
+.staff-register-dialog::backdrop{background:#05111fbb;backdrop-filter:blur(4px)}
+.staff-register-dialog-header{display:flex;flex:0 0 auto;align-items:center;justify-content:space-between;gap:16px;padding:20px 25px;border-bottom:1px solid #e8edf2;background:#fff}
+.staff-register-heading{display:flex;align-items:center;gap:12px}
+.staff-register-icon{display:grid;flex:0 0 42px;width:42px;height:42px;place-items:center;border-radius:12px;background:#10243d;color:#d5ad62;font-size:16px}
+.staff-register-heading h2{margin:4px 0 0;color:#10243d;font-size:20px;line-height:1.25}
+.staff-register-eyebrow{color:#9c793b;font-size:9px;font-weight:800;letter-spacing:1.6px}
+.staff-register-close{display:grid;flex:0 0 38px;width:38px;height:38px;place-items:center;border:1px solid #e0e6ec;border-radius:10px;background:#fff;color:#607086;font-size:16px;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.staff-register-close:hover{border-color:#d6c69e;background:#fbf8ef;color:#856728}
+.staff-register-close:focus-visible,.staff-register-trigger:focus-visible{outline:3px solid #c8a76a88;outline-offset:3px}
+.staff-register-dialog-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:22px 28px 26px}
+.staff-register-dialog-intro{margin:0 0 16px;color:#667085;font-size:13px;line-height:1.6}
+.staff-approval-note{display:flex;align-items:flex-start;gap:10px;margin:0 0 18px;padding:12px 13px;border:1px solid #eee2c3;border-radius:11px;background:#fffbf1;color:#74571f}
+.staff-approval-note>i{margin-top:2px;color:#9b7737}
+.staff-approval-note span{font-size:11px;line-height:1.55}
+.staff-register-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px}
+.staff-register-fields>.field{min-width:0;margin:9px 0}
+.staff-register-dialog .field label{color:#344054;font-size:12px}
+.staff-register-dialog .field input{min-height:43px;padding:10px 12px;font-size:13px}
+.staff-register-dialog .field input:focus{border-color:#b7964b;box-shadow:0 0 0 3px rgba(183,150,75,.14)}
+.staff-register-dialog .toggle-password{right:3px}
+.staff-register-dialog .auth-button{min-height:47px;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;background:#10243d}
+.staff-register-dialog .auth-button:hover{background:#183454}
+.staff-register-dialog-footer{margin:13px 0 0;color:#8490a0;font-size:10px;text-align:center;line-height:1.5}
+@media(max-width:600px){.auth-card:has(.staff-login-content){max-width:520px}.staff-login-content>h2{font-size:27px}.staff-register-dialog-header{padding:15px 16px}.staff-register-dialog-body{padding:17px 16px 20px}}
+@media(max-width:440px){.staff-register-dialog{width:calc(100vw - 20px);max-height:94vh;border-radius:16px}.staff-register-heading{gap:9px}.staff-register-icon{flex-basis:36px;width:36px;height:36px;font-size:14px}.staff-register-heading h2{font-size:17px}.staff-register-fields{grid-template-columns:1fr;column-gap:0}.staff-register-fields>.field{margin:7px 0}}
+@media(prefers-reduced-motion:reduce){.staff-register-close{transition:none}}
 .supporting-file-selection{margin-top:14px;padding:13px;border:1px solid #e6eaf0;border-radius:12px;background:#f8fafc}
 .supporting-file-selection[hidden]{display:none}
 .supporting-file-selection-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;color:#344054;font-size:12px}

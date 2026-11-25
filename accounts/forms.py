@@ -183,7 +183,12 @@ class ClientServiceRequestForm(forms.Form):
 
 
 class StaffRegisterForm(BaseRegisterForm):
-    pass
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip()
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("An account with this email already exists. Please contact the office.")
+        return email
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Username"}))

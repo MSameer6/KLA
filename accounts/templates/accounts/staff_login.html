@@ -1,1 +1,96 @@
-{% extends "accounts/auth_base.html" %}{% block title %}Staff Login{% endblock %}{% block content %}<div class="label staff">STAFF PORTAL</div><h2>Staff Login</h2><p>Authorized Khan Law Associates staff access.</p><form method="post">{% csrf_token %}{% for field in form %}<div class="field"><label>{{ field.label }}</label><div class="input-wrap">{{ field }}{% if field.name == 'password' %}<button type="button" class="toggle-password"><i class="fa-regular fa-eye"></i></button>{% endif %}</div></div>{% endfor %}<button class="auth-button staff-button"><i class="fa-solid fa-lock"></i> Secure Staff Login</button></form><p class="center">Need staff access? Contact an administrator.</p><p class="center line">Are you a client? <a href="{% url 'client_login' %}">Client Login</a></p>{% endblock %}
+{% extends "accounts/auth_base.html" %}
+{% block title %}Staff Login{% endblock %}
+{% block content %}
+<main class="staff-login-content">
+<div class="label staff">STAFF PORTAL</div>
+<h2>Staff Login</h2>
+<p class="auth-intro">Sign in to your secure Khan Law Associates workspace.</p>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="input-wrap">
+            {{ field }}
+            {% if field.name == "password" %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}
+        </div>
+        {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+    </div>
+    {% endfor %}
+    {% for error in form.non_field_errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+    <button class="auth-button staff-button"><i class="fa-solid fa-lock"></i> Secure Staff Login</button>
+</form>
+<div class="staff-access-note">
+    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+    <div><strong>Staff access is approval-only</strong><span>New registrations are reviewed by an administrator before sign-in is enabled.</span></div>
+</div>
+<p class="center">Need an account? <button type="button" class="staff-register-trigger" data-open-staff-registration>Request staff access</button></p>
+<p class="center line">Are you a client? <a href="{% url 'client_login' %}">Client Login</a></p>
+</main>
+
+<dialog class="staff-register-dialog" aria-labelledby="staff-register-title" data-auto-open="{% if open_staff_registration %}true{% else %}false{% endif %}">
+    <div class="staff-register-dialog-header">
+        <div class="staff-register-heading">
+            <span class="staff-register-icon"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span>
+            <div>
+                <span class="staff-register-eyebrow">KHAN LAW ASSOCIATES</span>
+                <h2 id="staff-register-title">Staff registration</h2>
+            </div>
+        </div>
+        <button type="button" class="staff-register-close" aria-label="Close registration form"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="staff-register-dialog-body">
+        <p class="staff-register-dialog-intro">Create your staff account request using your work details.</p>
+        <div class="staff-approval-note">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span>Your request will be sent for administrator approval. You can sign in after your account is approved.</span>
+        </div>
+        <form method="post" action="{% url 'staff_register' %}">
+            {% csrf_token %}
+            <div class="staff-register-fields">
+            {% for field in staff_register_form %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="input-wrap">
+                    {{ field }}
+                    {% if field.name == "password" or field.name == "confirm_password" %}<button type="button" class="toggle-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>{% endif %}
+                </div>
+                {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            </div>
+            {% endfor %}
+            {% for error in staff_register_form.non_field_errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+            </div>
+            <button class="auth-button staff-button" type="submit"><i class="fa-solid fa-user-plus" aria-hidden="true"></i> Submit registration request</button>
+            <p class="staff-register-dialog-footer">Your account will stay pending until an administrator approves it.</p>
+        </form>
+    </div>
+</dialog>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dialog = document.querySelector(".staff-register-dialog");
+    const openButton = document.querySelector("[data-open-staff-registration]");
+    const closeButton = document.querySelector(".staff-register-close");
+    if (!dialog || !openButton || !closeButton) return;
+
+    openButton.addEventListener("click", function () {
+        dialog.showModal();
+        const firstInput = dialog.querySelector("input:not([type=hidden])");
+        if (firstInput) firstInput.focus({ preventScroll: true });
+    });
+    closeButton.addEventListener("click", function () {
+        dialog.close();
+        openButton.focus();
+    });
+    dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) {
+            dialog.close();
+            openButton.focus();
+        }
+    });
+    dialog.addEventListener("close", function () {
+        openButton.focus();
+    });
+    if (dialog.dataset.autoOpen === "true") dialog.showModal();
+});
+</script>
+{% endblock %}

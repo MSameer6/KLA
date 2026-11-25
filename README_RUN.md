@@ -7,6 +7,7 @@ Open PowerShell in this folder and run:
 ```powershell
 py -3.14 -m pip install -r requirements.txt
 py -3.14 manage.py migrate
+py -3.14 manage.py createsuperuser
 py -3.14 manage.py runserver
 ```
 
@@ -14,7 +15,7 @@ Then open `http://127.0.0.1:8000/`.
 
 ## First accounts
 
-- Register staff at `http://127.0.0.1:8000/staff/register/`.
+- Request a staff account at `http://127.0.0.1:8000/staff/login/` using **Staff Register**. A superuser must approve the request in Django admin (`/admin/` → **Profiles** → set the account status to **Active**) before the user can sign in.
 - Register a client at `http://127.0.0.1:8000/client/register/`.
 - In **Staff → Clients**, create the client record using the exact same email as their client account. Documents and tax-return progress will then appear in that client's portal.
 

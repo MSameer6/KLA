@@ -5,7 +5,13 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import IntegrityError, transaction
 from django.utils.http import url_has_allowed_host_and_scheme
-from .forms import ClientRegisterForm, ClientDetailsForm, ClientServiceRequestForm, LoginForm
+from .forms import (
+    ClientRegisterForm,
+    ClientDetailsForm,
+    ClientServiceRequestForm,
+    LoginForm,
+    StaffRegisterForm,
+)
 from dashboard.billing import create_initial_service_invoice
 from dashboard.forms import ClientDocumentUploadForm
 from dashboard.models import Client, ClientDocument, ClientInvoice, ClientNotification, TaxCase
@@ -145,8 +151,45 @@ def client_login(request):
 
 
 def staff_register(request):
-    messages.info(request, "Staff accounts are created by an administrator. Please contact the office.")
-    return redirect("staff_login")
+    if request.method != "POST":
+        return redirect("staff_login")
+    if request.user.is_authenticated:
+        messages.error(request, "Please log out before requesting a staff account.")
+        return redirect("staff_login")
+
+    registration_form = StaffRegisterForm(request.POST, prefix="staff-register")
+    if registration_form.is_valid():
+        user = registration_form.save(commit=False)
+        user.set_password(registration_form.cleaned_data["password"])
+        user.is_staff = False
+        user.is_superuser = False
+        try:
+            with transaction.atomic():
+                user.save()
+                profile = user.profile
+                profile.role = "STAFF"
+                profile.account_status = "PENDING"
+                profile.save(update_fields=["role", "account_status"])
+        except IntegrityError:
+            if User.objects.filter(username__iexact=user.username).exists():
+                registration_form.add_error(
+                    "username",
+                    "This username is already taken. Please choose another one.",
+                )
+            else:
+                raise
+        else:
+            messages.success(
+                request,
+                "Your staff registration request was submitted. An administrator must approve your account before you can sign in.",
+            )
+            return redirect("staff_login")
+
+    return render(request, "accounts/staff_login.html", {
+        "form": LoginForm(request),
+        "staff_register_form": registration_form,
+        "open_staff_registration": True,
+    })
 
 def staff_login(request):
     if request.user.is_authenticated and (
@@ -174,9 +217,15 @@ def staff_login(request):
             return redirect("home")
         if profile and profile.role in {"STAFF", "ADMIN"}:
             messages.error(request, "Your staff account is not active. Please contact an administrator.")
-            return render(request, "accounts/staff_login.html", {"form": form})
+            return render(request, "accounts/staff_login.html", {
+                "form": form,
+                "staff_register_form": StaffRegisterForm(prefix="staff-register"),
+            })
         messages.error(request, "This account is not authorized as staff.")
-    return render(request, "accounts/staff_login.html", {"form": form})
+    return render(request, "accounts/staff_login.html", {
+        "form": form,
+        "staff_register_form": StaffRegisterForm(prefix="staff-register"),
+    })
 
 
 def user_logout(request):
